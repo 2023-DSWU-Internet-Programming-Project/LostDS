@@ -5,14 +5,15 @@
     <title>분실물 찾아가세요!</title>
 </head>
 <body>
-    <h1>발견된 분실물 상세 페이지</h1>
-    <h2>{{ find.title }}</h2>
-    <h5>{{ find.created_at }}</h5>
-    <p>{{ find.content }}</p>
-    <form action="{% url 'complete_post' pk=find.id %}" method="post">
+<h1>발견된 분실물 상세 페이지</h1>
+<h2>{{ find.title }}</h2>
+<h4>{{ find.author }}</h4>
+<h5>{{ find.created_at }}</h5>
+<p>{{ find.content }}</p>
+<form action="{% url 'complete_post' pk=find.id %}" method="post">
     {% csrf_token %}
     <button type="submit">완료</button>
-    </form>
+</form>
 
 </body>
 </html>
