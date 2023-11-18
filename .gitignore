@@ -3,4 +3,3 @@ venv
 secrets.json
 project/secrets.json
 BASE_DIR/secrets.json
-migrations/
