@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
+    <title>signup</title>
 </head>
 <body>
-    <h1>로그인</h1>
+    <h1>회원가입</h1>
 
     <a href="/login/logout">로그아웃</a><br>
-    <a href="/login/signup">회원가입</a>
+    <a href="/login/">로그인</a>
 
     <form method="POST">
         {% csrf_token %}
@@ -23,12 +23,23 @@
             <input type="password" name="password" minlength="6" autocomplete="off" required id="id_password" placeholder="비밀번호 (6자리 이상)">
         </p>
 
-        <button type="submit">로그인</button>
+        <p>
+            <label for="id_password2">비밀번호 재확인: </label>
+            <input type="password" name="password2" minlength="6" autocomplete="off" required id="id_password2" placeholder="비밀번호 (6자리 이상)">
+        </p>
+
+        <p>
+            <label for="id_email">이메일: </label>
+            <input type="text" name="email" required id="id_email" autocomplete="off" pattern=".+@duksung\.ac\.kr$" placeholder="@duksung.ac.kr">
+        </p>
+
+        <button type="submit" value="signup">회원가입</button>
     </form>
 
     {% if error %}
         <p>{{ error }}</p>
     {% endif %}
+    
 
 </body>
 </html>
