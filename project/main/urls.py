@@ -9,7 +9,7 @@ urlpatterns = [
     path('', views.connect),
     path('login/', views.login, name='login'),
     path('message/', views.found, name='found'),
-    path('message/', views.find, name='find')
+    path('message/ask/', views.find, name='find')
     # path('mypage/', views.mypage, name='mypage')
 ]
 
