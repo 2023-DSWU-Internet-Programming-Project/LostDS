@@ -13,6 +13,7 @@ class findDetail(DetailView):
     template_name = 'message/findItem_detail.html'
     # 컨텍스트 객체 이름 지정
     context_object_name = 'find'
+
 class askList(ListView):
     model = AskItem
     ordering = '-pk'
@@ -21,10 +22,18 @@ class askList(ListView):
 class askDetail(DetailView):
     model = AskItem
     template_name = 'message/askItem_detail.html'
+    # 컨텍스트 객체 이름 지정
+    context_object_name = 'ask'
 
 class completeList(ListView):
     model = CompleteItem
-    template_name = 'message/completeItem.html'
+    template_name = 'message/completeItem_list.html'
+
+class completeDetail(DetailView):
+    model = CompleteItem
+    template_name = 'message/completeItem_detail.html'
+    # 컨텍스트 객체 이름 지정
+    context_object_name = 'complete'
 
 def complete_post(request, pk):
     post = get_object_or_404(FindItem, pk=pk)

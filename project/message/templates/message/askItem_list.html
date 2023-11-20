@@ -6,11 +6,12 @@
     <title>분실물 찾아가세요!</title>
 </head>
 <body>
-    <h1>요청 물품</h1>
-    {% for item in object_list %}
-    <h3>{{ item.title }}</h3>
-    <h5>{{ item.created_at }}</h5>
-    <p>{{ item.content }}</p>
-    {% endfor %}
+<h1>요청 물품</h1>
+{% for item in object_list %}
+<h3>{{ item.title }}</h3>
+<h4>{{ item.author }}</h4>
+<h5>{{ item.created_at }}</h5>
+<p>{{ item.content }}</p>
+{% endfor %}
 </body>
 </html>

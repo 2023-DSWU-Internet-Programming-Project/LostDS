@@ -6,12 +6,13 @@
     <title>분실물 찾아가세요!</title>
 </head>
 <body>
-    <h1>발견된 분실물</h1>
-    {% for item in object_list %}
-        <h2>{{ item.title }}</h2>
-        <h5>{{ item.created_at }}</h5>
-        <p>{{ item.content }}</p>
-        <a href="{{ item.get_absolute_url }}">더보기</a>
-    {% endfor %}
+<h1>발견된 분실물</h1>
+{% for item in object_list %}
+<h2>{{ item.title }}</h2>
+<h4>{{ item.author }}</h4>
+<h5>{{ item.created_at }}</h5>
+<p>{{ item.content }}</p>
+<a href="{{ item.get_absolute_url }}">더보기</a>
+{% endfor %}
 </body>
 </html>
