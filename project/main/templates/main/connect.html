@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>연결하는 페이지</title>
+</head>
+<body>
+    <h3>분실물 찾는 게시판 연결</h3>
+        <a href="{% url 'find' %}">find</a>
+    <h3>찾은 분실물 올리는 게시판 연결</h3>
+        <a href="{% url 'found' %}">found</a>
+    <h3>마이페이지 연결</h3>
+        <a href="">my_page</a>
+    <h3>로그인, 회원가입 페이지 연결</h3>
+        <a href="{% url 'login' %}">login</a>
+    <h3>학교 지도</h3>
+        <img src="/static/main/campus_map.jpg" alt="학교 캠퍼스맵" width="1000" height="500">
+</body>
+</html>
