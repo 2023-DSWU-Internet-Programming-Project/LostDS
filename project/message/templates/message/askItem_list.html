@@ -1,17 +1,25 @@
 <!-- 분실물을 찾는 페이지 -->
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>분실물 찾아가세요!</title>
-</head>
-<body>
-<h1>요청 물품</h1>
-{% for item in object_list %}
-<h3>{{ item.title }}</h3>
-<h4>{{ item.author }}</h4>
-<h5>{{ item.created_at }}</h5>
-<p>{{ item.content }}</p>
-{% endfor %}
-</body>
-</html>
+{% extends 'message/base_list.html' %}
+
+{% block list_title %}
+잃어버렸나요? (분실물)
+{% endblock %}
+{% block main_area %}
+<h2>게시글</h2>
+<div class="post-container">
+    {% for item in object_list %}
+    <div class="post-content">
+        {% if item.head_image %}
+        <img src="{{ item.head_image.url }}" width="350px" height="200px" alt="{{ item }} head image">
+        {% else %}
+        <img src="https://picsum.photos/seed/{{ item.id }}/350/200" alt="random_image">
+        {% endif %}
+        <h2>{{ item.title }}</h2>
+        <h4>작성자 :: {{ item.author }}</h4>
+        <h5>{{ item.created_at }}</h5>
+        <p>{{ item.content }}</p>
+        <a href="{{ item.get_absolute_url }}">더보기</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
