@@ -6,20 +6,22 @@
     {% for item in object_list %}
     <div class="post-content">
         {% if item.head_image %}
-        <img src="{{ item.head_image.url }}" width="350px" height="200px" alt="{{ item }} head image">
+        <img src="{{ item.head_image.url }}" width="300px" height="200px" alt="{{ item }} head image">
         {% else %}
-        <img src="https://picsum.photos/seed/{{ item.id }}/350/200" alt="random_image">
+        <img src="https://picsum.photos/seed/{{ item.id }}/300/200" alt="random_image">
         {% endif %}
-        <h2>{{ item.title }}</h2>
-        <h4>작성자 :: {{ item.author }}</h4>
-        <h5>{{ item.created_at }}</h5>
-        {% if item.category %}
-        <span>{{ item.category }}</span>
-        {% else %}
-        <span>미분류</span>
-        {% endif %}
-        <p>{{ item.content }}</p>
-        <a href="{{ item.get_absolute_url }}">더보기</a>
+        <div class="post-text-box">
+            <h2>{{ item.title }}</h2>
+            <h4>작성자 :: {{ item.author }}</h4>
+            <h5>{{ item.created_at }}</h5>
+            {% if item.category %}
+            <span>{{ item.category }}</span>
+            {% else %}
+            <span>미분류</span>
+            {% endif %}
+            <p>{{ item.content }}</p>
+            <a href="{{ item.get_absolute_url }}">더보기</a>
+        </div>
     </div>
     {% endfor %}
 </div>
