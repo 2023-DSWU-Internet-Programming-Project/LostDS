@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'MaruBuri';
+    font-weight: 700;
+    font-style: normal;
+    src: url(https://cdn.jsdelivr.net/gh/webfontworld/naver/MaruBuri-Bold.woff2) format('woff2');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EASTARJET-Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/EASTARJET-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+body {
+font-family: 'EASTARJET-Medium';
+}
+
+.container {
+    display: grid;
+    margin: 0 auto;
+    max-width: 1140px; /* 컨텐츠의 최대 넓이 */
+}
+
+/* 카테고리 정렬 */
+.category-container {
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+}
+.category-content {
+    width: 100%; /* 너비를 100%로 유지 */
+    padding: 25px 20px 0px 20px;
+    margin: 5px;
+    border-radius: 10px;
+    background: #FAF2D2;
+    box-shadow: 5px 5px #E8E6D5
+}
+.category-content:hover {
+    background: #FFEB9E;
+}
+.icon-text-wrapper {
+    display: flex;
+    flex-direction: column; /* 요소들을 세로 방향(위아래)으로 정렬 */
+    align-items: center; /* 요소들을 수직(세로) 가운데 정렬 */
+    border-radius: 20px;
+}
+
+/* 포스트 정렬 */
+.post-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* 3개의 그리드 아이템을 최소 300px 너비로 반복해서 출력 */
+    max-width: 1140px; /* 최대 너비 지정 */
+    margin: 0 20px; /* 가운데 정렬 */
+    gap: 30px; /* 각 그리드 아이템 사이의 간격 */
+}
+.post-content {
+    max-width: 100%; /* 컨텐츠의 최대 너비 */
+    margin-bottom: 50px;
+}

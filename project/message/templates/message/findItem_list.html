@@ -1,18 +1,26 @@
-<!-- 발견한 불실물을 올리는 페이지 -->
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>분실물 찾아가세요!</title>
-</head>
-<body>
-<h1>발견된 분실물</h1>
-{% for item in object_list %}
-<h2>{{ item.title }}</h2>
-<h4>{{ item.author }}</h4>
-<h5>{{ item.created_at }}</h5>
-<p>{{ item.content }}</p>
-<a href="{{ item.get_absolute_url }}">더보기</a>
-{% endfor %}
-</body>
-</html>
+<!-- 습득물을 올리는 페이지 -->
+{% extends 'message/base_list.html' %}
+{% block main_area %}
+<h2>게시글</h2>
+<div class="post-container">
+    {% for item in object_list %}
+    <div class="post-content">
+        {% if item.head_image %}
+        <img src="{{ item.head_image.url }}" width="350px" height="200px" alt="{{ item }} head image">
+        {% else %}
+        <img src="https://picsum.photos/seed/{{ item.id }}/350/200" alt="random_image">
+        {% endif %}
+        <h2>{{ item.title }}</h2>
+        <h4>작성자 :: {{ item.author }}</h4>
+        <h5>{{ item.created_at }}</h5>
+        {% if item.category %}
+        <span>{{ item.category }}</span>
+        {% else %}
+        <span>미분류</span>
+        {% endif %}
+        <p>{{ item.content }}</p>
+        <a href="{{ item.get_absolute_url }}">더보기</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

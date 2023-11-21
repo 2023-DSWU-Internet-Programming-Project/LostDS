@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Category(models.Model):
     name = models.CharField(max_length=10, unique=True)
     slug = models.SlugField(max_length=100, unique=True, allow_unicode=True)
@@ -10,6 +11,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'Categories'
+
 
 class FindItem(models.Model):
     # 포스트 제목
@@ -25,6 +27,7 @@ class FindItem(models.Model):
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
 
     # 사진 업로드
+    head_image = models.ImageField(upload_to='message/images/find/%Y/%m/%d/', blank=True)
 
     # 포스트 내용
     content = models.TextField()
@@ -35,7 +38,7 @@ class FindItem(models.Model):
         return f'{self.title}'
 
     def get_absolute_url(self):
-        return f'/message/{self.pk}/'
+        return f'/message/find/{self.pk}/'
 
 
 class AskItem(models.Model):
@@ -52,6 +55,7 @@ class AskItem(models.Model):
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
 
     # 사진 업로드
+    head_image = models.ImageField(upload_to='message/images/ask/%Y/%m/%d/', blank=True)
 
     # 포스트 내용
     content = models.TextField()
@@ -63,6 +67,7 @@ class AskItem(models.Model):
 
     def get_absolute_url(self):
         return f'/message/ask/{self.pk}/'
+
 
 class CompleteItem(models.Model):
     # 포스트 제목
@@ -78,6 +83,7 @@ class CompleteItem(models.Model):
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
 
     # 사진 업로드
+    head_image = models.ImageField(upload_to='message/images/complete/%Y/%m/%d/', blank=True)
 
     # 포스트 내용
     content = models.TextField()
