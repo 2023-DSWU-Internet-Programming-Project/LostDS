@@ -5,3 +5,5 @@ project/secrets.json
 BASE_DIR/secrets.json
 *.idea
 .idea
+__pycache__/
+__pycache__
