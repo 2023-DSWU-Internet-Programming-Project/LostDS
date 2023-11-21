@@ -1,25 +1,71 @@
 <!-- 분실물을 찾는 페이지 -->
-{% extends 'message/base_list.html' %}
-
-{% block list_title %}
-잃어버렸나요? (분실물)
-{% endblock %}
-{% block main_area %}
-<h2>게시글</h2>
-<div class="post-container">
-    {% for item in object_list %}
-    <div class="post-content">
-        {% if item.head_image %}
-        <img src="{{ item.head_image.url }}" width="350px" height="200px" alt="{{ item }} head image">
-        {% else %}
-        <img src="https://picsum.photos/seed/{{ item.id }}/350/200" alt="random_image">
-        {% endif %}
-        <h2>{{ item.title }}</h2>
-        <h4>작성자 :: {{ item.author }}</h4>
-        <h5>{{ item.created_at }}</h5>
-        <p>{{ item.content }}</p>
-        <a href="{{ item.get_absolute_url }}">더보기</a>
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>LostDS</title>
+    <link rel="stylesheet" href="{% static 'message/css/base_list.css' %}" media="screen">
+</head>
+<body>
+<div class="container">
+    <h1>물건을 잃어버리셨나요?<br>잃어버린 분실물을 올려주세요!</h1>
+    <br/><br/>
+    <!-- 카테고리 -->
+    <div class="category-container">
+        <div class="category-content">
+            <a class="detail-link" href="/message/ask/">
+                <div class="icon-text-wrapper">
+                    <img src="/static/message/image/all.png" width="60" height="60">
+                    <div class="category-font">전체</div>
+                </div>
+            </a>
+        </div>
+        {% for category in categories %}
+        <div class="category-content">
+            <a class="detail-link" href="{{ category.get_absolute_url_ask }}">
+                <div class="icon-text-wrapper">
+                    <img src="{{ category.head_image.url }}" width="60" height="60">
+                    <div class="category-font">{{ category }}</div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+    <br/>
+    <div style="margin: 30px 0px">
+        {%if category %}<span style="font-size: x-large; font-weight: 700;"># {{ category }}</span>{% endif %}
+    </div>
+    <!-- 게시글 생성 버튼 -->
+    <a href="">글 쓰기</a>
+    <!-- 게시글 -->
+    <div class="post-container">
+        <div class="post-container">
+            {% for item in object_list %}
+            <a class="detail-link" href="{{ item.get_absolute_url }}">
+                <div class="post-content">
+                    {% if item.head_image %}
+                    <img src="{{ item.head_image.url }}" width="350px" height="200px" alt="{{ item }} head image">
+                    {% else %}
+                    <img src="https://picsum.photos/seed/{{ item.id }}/350/200" alt="random_image">
+                    {% endif %}
+                    <div class="post-text-box">
+                        <h2>{{ item.title }}</h2>
+                        <h4>작성자 :: {{ item.author }}</h4>
+                        <h5>{{ item.created_at }}</h5>
+                        {% if item.category %}
+                        <span style="color: gray;"># {{ item.category }}</span>
+                        {% else %}
+                        <span style="color: gray;"># 기타</span>
+                        {% endif %}
+                        <hr/>
+                        <p>{{ item.content | truncatechars:20 }}</p>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
 </div>
-{% endblock %}
+</body>
+</html>
