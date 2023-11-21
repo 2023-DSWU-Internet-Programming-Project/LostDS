@@ -6,3 +6,5 @@ BASE_DIR/secrets.json
 _media/
 *.idea
 .idea
+__pycache__/
+__pycache__
