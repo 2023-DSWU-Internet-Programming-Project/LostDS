@@ -7,6 +7,7 @@ from .forms import *
 
 # Create your views here.
 
+
 def login_view(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -14,7 +15,7 @@ def login_view(request):
         user = auth.authenticate(request, username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return redirect('#') #health:main, 로그인이 성공하면 리다이렉트할 위치 적기
+            return redirect('/')
         else:
             return render(request, 'user/login.html', {'error': '아이디 또는 비밀번호가 일치하지 않습니다.'})
     else: 
@@ -23,7 +24,7 @@ def login_view(request):
 
 def logout_view(request):
     auth.logout(request)
-    return redirect('/login/')
+    return redirect('/')
 
 def signup_view(request):
     if request.method == 'POST':
