@@ -28,3 +28,8 @@ def find(request):
 
 # def mypage(request):
     # return render(request,'') html 페이지 적기
+
+def info(request):
+    return render(
+        request,'user/signup.html'
+    )
