@@ -9,6 +9,11 @@
 <h2>{{ find.title }}</h2>
 <h4>{{ find.author }}</h4>
 <h5>{{ find.created_at }}</h5>
+{% if find.category %}
+<span style="color: gray;"># {{ find.category }}</span>
+{% else %}
+<span style="color: gray;"># 기타</span>
+{% endif %}
 <p>{{ find.content }}</p>
 <form action="{% url 'complete_post' pk=find.id %}" method="post">
     {% csrf_token %}
