@@ -42,8 +42,6 @@ class FindItem(models.Model):
     # 포스트 내용
     content = models.TextField()
 
-    # 댓글
-
     def __str__(self):
         return f'{self.title}'
 
@@ -69,8 +67,6 @@ class AskItem(models.Model):
 
     # 포스트 내용
     content = models.TextField()
-
-    # 댓글
 
     def __str__(self):
         return f'{self.title}'
@@ -98,10 +94,18 @@ class CompleteItem(models.Model):
     # 포스트 내용
     content = models.TextField()
 
-    # 댓글
-
     def __str__(self):
         return f'{self.title}'
 
     def get_absolute_url(self):
-        return f'/message/complete/{self.pk}/'
+        return f'/message/complete_post/{self.pk}/'
+
+class Comment(models.Model):
+    findPost = models.ForeignKey(FindItem, on_delete=models.CASCADE, blank=True)
+    askPost = models.ForeignKey(AskItem, on_delete=models.CASCADE, blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.author}::{self.content}'

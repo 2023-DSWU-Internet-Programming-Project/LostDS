@@ -1,14 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>분실물 찾아가세요!</title>
+    <title>LostDS</title>
+    <link rel="stylesheet" href="{% static 'message/css/base_detail.css' %}" media="screen">
 </head>
 <body>
-<h1>찾아간 분실물 상세페이지</h1>
-<h2>{{ complete.title }}</h2>
-<h4>{{ complete.author }}</h4>
-<h5>{{ complete.created_at }}</h5>
-<p>{{ complete.content }}</p>
+<div class="container">
+    <h1>완료 물품 상세 페이지</h1>
+    <div class="content">
+        <div class="title-content">
+            <h2>{{ complete.title }}</h2>
+            <h4>{{ complete.author }}</h4>
+            <h5>{{ complete.created_at }}</h5>
+            {% if complete.category %}
+            <span style="color: gray;"># {{ complete.category }}</span>
+            {% else %}
+            <span style="color: gray;"># 기타</span>
+            {% endif %}
+        </div>
+        <hr/>
+        <div class="content-content">
+            <p>{{ complete.content }}</p>
+            {% if user.is_authenticated and user == complete.author %}
+            <a href="/message/complete/delete_post/{{ complete.pk }}/" role="button">삭제</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 </body>
 </html>

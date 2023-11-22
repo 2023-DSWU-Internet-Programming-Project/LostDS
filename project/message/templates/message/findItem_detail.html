@@ -1,24 +1,39 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>분실물 찾아가세요!</title>
-</head>
-<body>
-<h1>발견된 분실물 상세 페이지</h1>
-<h2>{{ find.title }}</h2>
-<h4>{{ find.author }}</h4>
-<h5>{{ find.created_at }}</h5>
-{% if find.category %}
-<span style="color: gray;"># {{ find.category }}</span>
-{% else %}
-<span style="color: gray;"># 기타</span>
-{% endif %}
-<p>{{ find.content }}</p>
-<form action="{% url 'complete_post' pk=find.id %}" method="post">
-    {% csrf_token %}
-    <button type="submit">완료</button>
-</form>
 
+<head>
+  <meta charset="UTF-8" />
+  <title>LostDS</title>
+  <link rel="stylesheet" href="{% static 'message/css/base_detail.css' %}" media="screen" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>이 물건의 주인을 찾고있어요!</h1>
+    <div class="title-content">
+      <h2>{{ find.title }}</h2>
+      <h4>{{ find.author }}</h4>
+      <h5>{{ find.created_at }}</h5>
+      {% if find.category %}
+      <span style="color: gray"># {{ find.category }}</span>
+      {% else %}
+      <span style="color: gray"># 기타</span>
+      {% endif %}
+    </div>
+    <hr />
+    <div class="content-content">
+      {% if user.is_authenticated and user == find.author %}
+      <a href="/message/find/update_post/{{ find.pk }}/">수정</a>
+      <a href="/message/find/delete_post/{{ find.pk }}/">삭제</a>
+      {% endif %}
+      <p>{{ find.content }}</p>
+      <form action="{% url 'complete_post' pk=find.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">완료</button>
+      </form>
+    </div>
+  </div>
 </body>
+
 </html>
