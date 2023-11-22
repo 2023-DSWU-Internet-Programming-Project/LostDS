@@ -1,0 +1,63 @@
+{% extends 'main/nav.html' %}
+
+{% block content %}
+{% load static %}
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'mypage/css/base.css' %}" media="screen">
+    <title>My Page</title>
+    <h1 style = text-align:center;>My Page</h1>
+</head>
+
+<body>
+<div class="container">
+
+    <!-- 유저 정보 -->
+    <h2 style="margin-left:463px">유저 정보</h2>
+    <div class="user-container">
+        <div class="user-content">
+            <img src="/static/mypage/image/profile.png" width="150" height="150">
+<!--            <h2>{{ username }}님, 환영합니다!</h2>-->
+<!--            <h3>ID : {{ username }}</h3>-->
+<!--            <h3>이메일 : {{ emil }}</h3>-->
+        </div>
+    </div>
+
+    <!-- 내가 쓴 글 -->
+    <h3 style="margin-left:463px">내가 쓴 게시글</h3>
+    <div class="post-container">
+        <div class="post-content">
+
+        </div>
+    </div>
+
+    <!-- 내가 쓴 댓글 -->
+    <h3 style="margin-left:463px">내가 쓴 댓글</h3>
+    <div class="comment-container">
+        <div class="comment-content">
+
+        </div>
+    </div>
+
+    <!-- 왼쪽에 기본 프로필 이미지를 하나 넣고 그 오른쪽에 텍스트로 -->
+<!--    <span style="background:#E8E6D5">-->
+<!--        <h2>{{ username }}님, 환영합니다!</h2>-->
+<!--        <h3>ID : {{ username }}</h3>-->
+<!--        <h3>이메일 : {{ emil }}</h3>-->
+<!--    </span>-->
+<!--    <header style="padding:30px; background:#E8E6D5">-->
+<!--        <h2>{{ username }}님, 환영합니다!</h2>-->
+<!--        <h3>ID : {{ username }}</h3>-->
+<!--        <h3>이메일 : {{ emil }}</h3>-->
+<!--    </header>-->
+</div>
+
+
+<!--    <a href="/mypage/user">내 정보</a><br>-->
+    <a href="/mypage/my-post">내가 쓴 글</a><br>
+    <a href="/mypage/comment">내가 쓴 댓글</a>
+</body>
+{% endblock %}
+</html>
