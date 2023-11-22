@@ -1,14 +1,58 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
-    <title>분실물 찾아가세요!</title>
+    <title>LostDS</title>
+    <link rel="stylesheet" href="{% static 'message/css/base_detail.css' %}" media="screen">
 </head>
+
 <body>
-<h1>요청 물품 상세 페이지</h1>
-<h2>{{ ask.title }}</h2>
-<h4>{{ ask.author }}</h4>
-<h5>{{ ask.created_at }}</h5>
-<p>{{ ask.content }}</p>
+    <div class="container">
+        <h1>요청 물품 상세 페이지</h1>
+        <h2>{{ ask.title }}</h2>
+        <h4>{{ ask.author }}</h4>
+        <h5>{{ ask.created_at }}</h5>
+        {% if ask.category %}
+        <span style="color: gray;"># {{ ask.category }}</span>
+        {% else %}
+        <span style="color: gray;"># 기타</span>
+        {% endif %}
+        {% if user.is_authenticated and user == ask.author %}
+        <a href="/message/ask/update_post/{{ ask.pk }}/" role="button">수정</a>
+        <a href="/message/ask/delete_post/{{ ask.pk }}/" role="button">삭제</a>
+        {% endif %}
+        <p>{{ ask.content }}</p>
+
+        <!-- 댓글 -->
+        <div class="comment-container">
+            {% if user.is_authenticated %}
+            <form id="comment-form" method="POST" action="/message/ask/{{ ask.pk }}/new_comment/">
+                {% csrf_token %}
+                <div>
+                    {{ comment_form }}
+                </div>
+                <button type="submit">등록</button>
+            </form>
+            {% else %}
+            <a role="button" href="#">로그인하신 후 이용 가능합니다.</a>
+            {% endif %}
+            {% if ask.comment_set.exists %}
+            {% for comment in ask.comment_set.iterator %}
+            <div class="comment-content" id="comment-{{ comment.pk }}">
+                <img src="http://placehold.it/50x50" alt="">
+                <div class="comment-text">
+                    <h5>{{ comment.author.username }} &nbsp;&nbsp;
+                        <small style="color: gray;">{{ comment.created_at }}</small>
+                    </h5>
+                    <p>{{ comment.content | linebreaks }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
 </body>
+
 </html>
