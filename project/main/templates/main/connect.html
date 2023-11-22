@@ -1,22 +1,21 @@
 {% extends 'main/nav.html' %}
-
+{% load static %}
 
 {% block content %}
-
+<head>
+    <meta charset="UTF-8">
+    <title>LostDS</title>
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}" media="screen">
+</head>
 <body>
-    <h3>분실물 찾는 게시판 연결</h3>
-        <a href="{% url 'find' %}">find</a>
-    <h3>찾은 분실물 올리는 게시판 연결</h3>
-        <a href="{% url 'found' %}">found</a>
-    <h3>마이페이지 연결</h3>
-        <a href="">my_page</a>
-    <h3>로그인 페이지 연결</h3>
-        <a href="{% url 'login' %}">login</a>
-    <h3>회원가입 페이지 연결</h3>
-        <a href="{% url 'info' %}">info</a>
-    <h3>사람git pu</h3>
-        <img src="/static/main/ppl.jpg" alt="학교 전경" width="1000" height="500">
-</body>
-{% endblock %}
 
+        <h2> abffsss</h2><!--해결-->
+        <h2 style="font-family:'PuradakGentleGothicR'; font-size:60px;">LostDS</h2>
+        <img src="/static/main/ppl.jpg" alt="일러스트" width="500" height="400">
+        <h1>덕성여자대학교에서 발생한 모든 분실물을 찾아드립니다</h1>
+        <a href="{% url 'find' %}">잃어버렸나요?(분실물)</a>
+        <a href="{% url 'found' %}">주인을 찾아요!(습득물)</a>
+
+{% endblock %}
+</body>
 </html>
