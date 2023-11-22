@@ -14,7 +14,24 @@
 }
 
 body {
-font-family: 'EASTARJET-Medium';
+    font-family: 'EASTARJET-Medium';
+}
+
+/* a 태그 폰트 색상 및 밑줄 설정 */
+.detail-link {
+    text-decoration-line : none;
+}
+.detail-link:link {
+  color : black;
+}
+.detail-link:visited {
+  color : black;
+}
+.detail-link:hover {
+  color : black;
+}
+.detail-link:active {
+  color : black;
 }
 
 .container {
@@ -28,13 +45,20 @@ font-family: 'EASTARJET-Medium';
     display: flex;
     justify-content: center; /* 중앙 정렬 */
 }
+
 .category-content {
     width: 100%; /* 너비를 100%로 유지 */
-    padding: 25px 20px 0px 20px;
+    padding: 10px;
     margin: 5px;
     border-radius: 10px;
     background: #FAF2D2;
-    box-shadow: 5px 5px #E8E6D5
+    box-shadow: 5px 5px #E8E6D5;
+}
+
+.category-font {
+    margin-top: 10px;
+    font-size: lg;
+    font-weight: 700;
 }
 .category-content:hover {
     background: #FFEB9E;
@@ -43,18 +67,29 @@ font-family: 'EASTARJET-Medium';
     display: flex;
     flex-direction: column; /* 요소들을 세로 방향(위아래)으로 정렬 */
     align-items: center; /* 요소들을 수직(세로) 가운데 정렬 */
-    border-radius: 20px;
 }
 
 /* 포스트 정렬 */
 .post-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* 3개의 그리드 아이템을 최소 300px 너비로 반복해서 출력 */
-    max-width: 1140px; /* 최대 너비 지정 */
-    margin: 0 20px; /* 가운데 정렬 */
-    gap: 30px; /* 각 그리드 아이템 사이의 간격 */
+    grid-template-columns: repeat(3, 1fr); /* 3개의 그리드 아이템을 최소 300px 너비로 반복해서 출력 */
+    margin: 0 auto; /* 가운데 정렬 */
 }
 .post-content {
+    background: #D9D9D9;
     max-width: 100%; /* 컨텐츠의 최대 너비 */
+    padding: 15px;
+    margin: 10px;
     margin-bottom: 50px;
+    border-radius: 10px;
+}
+.post-content:hover {
+    position: relative;
+    right: 10px;
+    bottom: 10px;
+    box-shadow: 5px 5px #4d4d4d;
+}
+.post-text-box {
+    background: #FFFFFF;
+    padding: 20px;
 }
