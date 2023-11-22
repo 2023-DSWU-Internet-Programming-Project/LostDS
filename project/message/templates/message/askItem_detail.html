@@ -24,6 +24,34 @@
         <a href="/message/ask/delete_post/{{ ask.pk }}/" role="button">삭제</a>
         {% endif %}
         <p>{{ ask.content }}</p>
+
+        <!-- 댓글 -->
+        <div class="comment-container">
+            {% if user.is_authenticated %}
+            <form id="comment-form" method="POST" action="/message/ask/{{ ask.pk }}/new_comment/">
+                {% csrf_token %}
+                <div>
+                    {{ comment_form }}
+                </div>
+                <button type="submit">등록</button>
+            </form>
+            {% else %}
+            <a role="button" href="#">로그인하신 후 이용 가능합니다.</a>
+            {% endif %}
+            {% if ask.comment_set.exists %}
+            {% for comment in ask.comment_set.iterator %}
+            <div class="comment-content" id="comment-{{ comment.pk }}">
+                <img src="http://placehold.it/50x50" alt="">
+                <div class="comment-text">
+                    <h5>{{ comment.author.username }} &nbsp;&nbsp;
+                        <small style="color: gray;">{{ comment.created_at }}</small>
+                    </h5>
+                    <p>{{ comment.content | linebreaks }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
     </div>
 </body>
 

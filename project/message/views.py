@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
+from .forms import CommentForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.core.exceptions import PermissionDenied
+
 
 # 습득물 페이지 리스트 뷰
 class findList(ListView):
@@ -15,6 +17,7 @@ class findList(ListView):
         context['categories'] = Category.objects.all()
         return context
 
+
 # 습득물 페이지 디테일 뷰
 class findDetail(DetailView):
     model = FindItem
@@ -25,7 +28,9 @@ class findDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(findDetail, self).get_context_data()
         context['categories'] = Category.objects.all()
+        context['comment_form'] = CommentForm
         return context
+
 
 # 습득물 페이지 게시글 생성 뷰
 class FindPostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
@@ -45,6 +50,7 @@ class FindPostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         else:
             return redirect('/message/find/')
 
+
 # 습득물 페이지 게시글 수정 뷰
 class FindPostUpdate(LoginRequiredMixin, UpdateView):
     model = FindItem
@@ -58,6 +64,7 @@ class FindPostUpdate(LoginRequiredMixin, UpdateView):
         else:
             raise PermissionDenied
 
+
 # 습득물 페이지 게시글 삭제 뷰
 class FindPostDelete(LoginRequiredMixin, DeleteView):
     model = FindItem
@@ -70,6 +77,7 @@ class FindPostDelete(LoginRequiredMixin, DeleteView):
         else:
             raise PermissionDenied
 
+
 # 분실물 페이지 리스트 뷰
 class askList(ListView):
     model = AskItem
@@ -81,6 +89,7 @@ class askList(ListView):
         context['categories'] = Category.objects.all()
         return context
 
+
 # 분실물 페이지 디테일 뷰
 class askDetail(DetailView):
     model = AskItem
@@ -91,7 +100,9 @@ class askDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(askDetail, self).get_context_data()
         context['categories'] = Category.objects.all()
+        context['comment_form'] = CommentForm
         return context
+
 
 # 분실물 페이지 게시글 생성 뷰
 class AskPostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
@@ -111,12 +122,14 @@ class AskPostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         else:
             return redirect('/message/ask/')
 
+
 # 분실물 페이지 게시글 수정 뷰
 class AskPostUpdate(LoginRequiredMixin, UpdateView):
     model = AskItem
     fields = ['title', 'category', 'head_image', 'content']
     template_name = 'message/askItem_update_form.html'
     context_object_name = 'ask'
+
 
 # 분실물 페이지 게시글 삭제 뷰
 class AskPostDelete(LoginRequiredMixin, DeleteView):
@@ -130,6 +143,7 @@ class AskPostDelete(LoginRequiredMixin, DeleteView):
         else:
             raise PermissionDenied
 
+
 # 완료 처리된 페이지 리스트 뷰
 class completeList(ListView):
     model = CompleteItem
@@ -139,6 +153,7 @@ class completeList(ListView):
         context = super(completeList, self).get_context_data()
         context['categories'] = Category.objects.all()
         return context
+
 
 # 완료 처리된 페이지 디테일 뷰
 class completeDetail(DetailView):
@@ -152,6 +167,7 @@ class completeDetail(DetailView):
         context['categories'] = Category.objects.all()
         return context
 
+
 # 완료 처리된 페이지 게시글 삭제 뷰
 class CompletePostDelete(LoginRequiredMixin, DeleteView):
     model = CompleteItem
@@ -164,12 +180,12 @@ class CompletePostDelete(LoginRequiredMixin, DeleteView):
         else:
             raise PermissionDenied
 
+
 # 완료 버튼을 누를 시 FindItem 모델의 데이터가 CompleteItem 모델로 이동
 def complete_post(request, pk):
     post = get_object_or_404(FindItem, pk=pk)
-    
-    # author 속성을 만들었을 때 추후 추가할 if문. 현재 로그인 유저 == 작성자일 경우 버튼을 누를 수 있게하기 위함.
-    # if post.user == request.user:
+
+    # 권한이 있는 사람만 완료 버튼을 누를 수 있도록 수정 예정
     completed_post = completeList.model(
         title=post.title,
         author=post.author,
@@ -178,11 +194,22 @@ def complete_post(request, pk):
         head_image=post.head_image,
         content=post.content
     )
+
     completed_post.save()
+
+    comments = Comment.objects.filter(findPost=post)
+    for comment in comments:
+        Comment.objects.create(
+            completePost=completed_post,
+            author=comment.author,
+            content=comment.content,
+            created_at=comment.created_at
+        )
 
     post.delete()
 
     return redirect('../../')
+
 
 def category_page_find(request, slug):
     category = Category.objects.get(slug=slug)
@@ -197,6 +224,7 @@ def category_page_find(request, slug):
         }
     )
 
+
 def category_page_complete(request, slug):
     category = Category.objects.get(slug=slug)
 
@@ -210,6 +238,7 @@ def category_page_complete(request, slug):
         }
     )
 
+
 def category_page_ask(request, slug):
     category = Category.objects.get(slug=slug)
 
@@ -222,3 +251,39 @@ def category_page_ask(request, slug):
             'category': category
         }
     )
+
+
+def new_comment_find(request, pk):
+    if request.user.is_authenticated:
+        post = get_object_or_404(FindItem, pk=pk)
+
+        if request.method == 'POST':
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.findPost = post
+                comment.author = request.user
+                comment.save()
+                return redirect(comment.get_absolute_url_find())
+        else:
+            return redirect(post.get_absolute_url())
+    else:
+        raise PermissionDenied
+
+
+def new_comment_ask(request, pk):
+    if request.user.is_authenticated:
+        post = get_object_or_404(AskItem, pk=pk)
+
+        if request.method == 'POST':
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.askPost = post
+                comment.author = request.user
+                comment.save()
+                return redirect(comment.get_absolute_url_ask())
+        else:
+            return redirect(post.get_absolute_url())
+    else:
+        raise PermissionDenied

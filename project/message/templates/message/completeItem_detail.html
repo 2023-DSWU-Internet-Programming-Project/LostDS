@@ -9,24 +9,39 @@
 <body>
 <div class="container">
     <h1>완료 물품 상세 페이지</h1>
-    <div class="content">
-        <div class="title-content">
-            <h2>{{ complete.title }}</h2>
-            <h4>{{ complete.author }}</h4>
-            <h5>{{ complete.created_at }}</h5>
-            {% if complete.category %}
-            <span style="color: gray;"># {{ complete.category }}</span>
-            {% else %}
-            <span style="color: gray;"># 기타</span>
-            {% endif %}
+    <div class="title-content">
+        <h2>{{ complete.title }}</h2>
+        <h4>{{ complete.author }}</h4>
+        <h5>{{ complete.created_at }}</h5>
+        {% if complete.category %}
+        <span style="color: gray;"># {{ complete.category }}</span>
+        {% else %}
+        <span style="color: gray;"># 기타</span>
+        {% endif %}
+    </div>
+    <hr/>
+    <div class="content-content">
+        <p>{{ complete.content }}</p>
+        {% if user.is_authenticated and user == complete.author %}
+        <a href="/message/complete/delete_post/{{ complete.pk }}/" role="button">삭제</a>
+        {% endif %}
+    </div>
+
+    <!-- 댓글 -->
+    <div class="comment-container">
+        {% if complete.comment_set.exists %}
+        {% for comment in complete.comment_set.iterator %}
+        <div class="comment-content" id="comment-{{ comment.pk }}">
+            <img src="http://placehold.it/50x50" alt="">
+            <div class="comment-text">
+                <h5>{{ comment.author.username }} &nbsp;&nbsp;
+                    <small style="color: gray;">{{ comment.created_at }}</small>
+                </h5>
+                <p>{{ comment.content | linebreaks }}</p>
+            </div>
         </div>
-        <hr/>
-        <div class="content-content">
-            <p>{{ complete.content }}</p>
-            {% if user.is_authenticated and user == complete.author %}
-            <a href="/message/complete/delete_post/{{ complete.pk }}/" role="button">삭제</a>
-            {% endif %}
-        </div>
+        {% endfor %}
+        {% endif %}
     </div>
 </div>
 </body>
