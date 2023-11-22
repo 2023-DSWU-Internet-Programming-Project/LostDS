@@ -1,0 +1,82 @@
+@font-face {
+    font-family: 'PuradakGentleGothicR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.1/PuradakGentleGothicR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    text-shadow: 100px;
+}
+
+@font-face {
+    font-family: 'EASTARJET-Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/EASTARJET-Medium.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+
+body {
+    font-family: 'EASTARJET-Medium';
+    background-color: #FAF2D2;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.container {
+    position: relative;
+    background-color: white;
+    padding: 50px 150px;
+    border-radius: 25px;
+    /* box-shadow: 0 4px 8px rgb(255, 255, 255, 0.1); */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+}
+
+label {
+    font-size: 20px;
+}
+
+form {
+    margin: 0;
+}
+
+input[type="text"],
+input[type="password"] {
+    border: none; 
+    border-bottom: 0.5px solid rgb(121, 121, 121);
+    outline: none; 
+    background-color: transparent; 
+}
+
+button.login {
+    font-family: 'EASTARJET-Medium';
+    background-color: #E8E6D5; 
+    color: rgb(0, 0, 0); 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 50px; 
+    cursor: pointer; 
+}
+
+h1 {
+    position: absolute;
+    top: 35px;
+    left: 50%; 
+    transform: translateX(-50%);
+}
+
+a {
+    position: absolute;
+    bottom: 30px; 
+    left: 80%; 
+    /* right: 30px;  */
+}
