@@ -8,3 +8,4 @@ _media/
 .idea
 __pycache__/
 __pycache__
+*.pyc
