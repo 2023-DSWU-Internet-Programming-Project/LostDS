@@ -17,7 +17,7 @@ def login_view(request):
             auth.login(request, user)
             return redirect('/')
         else:
-            return render(request, 'user/login.html', {'error': '아이디 또는 비밀번호가 일치하지 않습니다.'})
+            return render(request, 'user/login.html', {'error_message': '아이디 또는 비밀번호가 일치하지 않습니다.'})
     else: 
         return render(request, 'user/login.html')
 
@@ -31,12 +31,15 @@ def signup_view(request):
         username = request.POST['username']
         password = request.POST['password']
         password2 = request.POST['password2']
+
+        if User.objects.filter(username=username).exists():
+            return render(request, 'user/signup.html', {'error_message': '이미 존재하는 아이디입니다.'})
         
         if password == password2:
             user = User.objects.create_user(username=username, password=password)
             auth.login(request, user)
             return render(request, 'user/login.html')
         else:
-            return render(request, 'user/signup.html', {'error': '비밀번호를 동일하게 입력해주세요.'})
+            return render(request, 'user/signup.html', {'error_message': '비밀번호를 동일하게 입력해주세요.'})
     
     return render(request, 'user/signup.html')
