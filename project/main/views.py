@@ -2,6 +2,8 @@
 from django.shortcuts import render, redirect
 from .models import *
 from . import *
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
@@ -26,6 +28,7 @@ def find(request):
         request,'message/askItem_list.html'
     )
 
+@login_required
 def mypage(request):
     return render(
         request,'mypage/mypage.html'
