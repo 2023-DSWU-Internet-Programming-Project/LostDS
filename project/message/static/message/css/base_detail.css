@@ -13,6 +13,10 @@
     font-style: normal;
 }
 
+
+
+
+
 body {
     font-family: 'EASTARJET-Medium';
 }
@@ -21,27 +25,97 @@ body {
     /* 컨텐츠의 최대 넓이 */
     max-width: 1140px;
     display: grid;
-    margin: 0 auto;
+    margin: 30px auto;
 }
 
-.title-content {
+button {}
+
+/* a 태그 폰트 색상 및 밑줄 설정 */
+.detail-link {
+    text-decoration-line: none;
+}
+
+.detail-link:link {
+    color: gray;
+}
+
+.detail-link:visited {
+    color: gray;
+}
+
+.detail-link:hover {
+    color: gray;
+    text-decoration-line: underline;
+}
+
+.detail-link:active {
+    color: gray;
+}
+
+
+
+
+
+/* 게시글 CSS */
+.content-container {
     /* 컨텐츠의 최대 너비 */
     max-width: 100%;
+    margin: 70px 0 20px 0;
     box-shadow: 5px 5px 5px #D9D9D9, -1px -1px 2px #D9D9D9;
     border-radius: 10px;
-    margin: 0px 10px 20px 10px;
-    padding: 20px;
+    padding: 20px 30px;
 }
 
-.content-content {
+.title-content {}
+
+.content-content {}
+
+
+
+
+
+/* 댓글 CSS */
+.comment-container {
     /* 컨텐츠의 최대 너비 */
     max-width: 100%;
+    margin-bottom: 20px 0 70px 0;
     box-shadow: 5px 5px 5px #D9D9D9, -1px -1px 2px #D9D9D9;
     border-radius: 10px;
-    margin: 0px 10px 20px 10px;
-    padding: 20px;
+    padding: 20px 30px;
 }
-
-.comment-container {}
 
 .comment-content {}
+
+.comment-profile {
+    border-radius: 10px;
+}
+
+.comment-user {}
+
+.comment-text {}
+
+
+
+
+
+/* 폰트 CSS */
+.main-font {
+    font-size: xx-large;
+    font-weight: 900;
+}
+
+.title-font {
+    font-size: x-large;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.sub-font {
+    font-size: medium;
+    font-weight: 500;
+}
+
+.content-font {
+    font-size: large;
+    font-weight: 500;
+}

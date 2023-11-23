@@ -9,34 +9,49 @@
 </head>
 
 <body>
+  <!-- 디테일 페이지 컨테이너 -->
   <div class="container">
-    <h1>이 물건의 주인을 찾고있어요!</h1>
-    <div class="title-content">
-      <h2>{{ find.title }}</h2>
-      <h4>{{ find.author }}</h4>
-      <h5>{{ find.created_at }}</h5>
-      {% if find.category %}
-      <span style="color: gray"># {{ find.category }}</span>
-      {% else %}
-      <span style="color: gray"># 기타</span>
-      {% endif %}
-    </div>
-    <hr />
-    <div class="content-content">
-      {% if user.is_authenticated and user == find.author %}
-      <a href="/message/find/update_post/{{ find.pk }}/">수정</a>
-      <a href="/message/find/delete_post/{{ find.pk }}/">삭제</a>
-      {% endif %}
-      <p>{{ find.content }}</p>
-      <form action="{% url 'complete_post' pk=find.id %}" method="post">
-        {% csrf_token %}
-        <button type="submit">완료</button>
-      </form>
+    <div class="main-font">이 물건의 주인을 찾고있어요!</div>
+
+    <!-- 게시글 컨테이너 -->
+    <div class="content-container">
+      <!-- 게시글 속성(제목, 카테고리 등) 컨텐츠 -->
+      <div class="title-content">
+        <div class="title-font">{{ find.title }}</div>
+        <div class="sub-font">
+          작성자 | {{ find.author }}<br>
+          작성일 | {{ find.created_at }}<br /><br />
+          {% if find.category %}
+          <span style="color: gray"># {{ find.category }}</span>
+          {% else %}
+          <span style="color: gray"># 기타</span>
+          {% endif %}
+          <span style="float:right">
+            <a class="detail-link" href="/message/find/update_post/{{ find.pk }}/">수정</a>
+            <small style="color: gray;">&nbsp;|&nbsp;</small>
+            <a class="detail-link" href="/message/find/delete_post/{{ find.pk }}/">삭제</a>
+          </span>
+        </div>
+      </div>
+      <br />
+      <hr />
+
+      <!-- 게시글 내용 컨텐츠 -->
+      <div class="content-content">
+        {% if user.is_authenticated and user == find.author %}
+        {% endif %}
+        <p class="content-font">{{ find.content }}</p>
+        <form action="{% url 'complete_post' pk=find.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit">완료</button>
+        </form>
+      </div>
     </div>
 
-    <!-- 댓글 -->
+    <!-- 댓글 컨테이너 -->
     <div class="comment-container">
       {% if user.is_authenticated %}
+      <!-- 댓글 입력 폼 -->
       <form id="comment-form" method="POST" action="/message/find/{{ find.pk }}/new_comment/">
         {% csrf_token %}
         <div>
@@ -45,17 +60,30 @@
         <button type="submit">등록</button>
       </form>
       {% else %}
-      <a role="button" href="#">로그인하신 후 이용 가능합니다.</a>
+      <a class="sub-font" role="button" href="#">로그인하신 후 이용 가능합니다.</a>
       {% endif %}
+
+      <!-- 댓글 컨텐츠 -->
       {% if find.comment_set.exists %}
       {% for comment in find.comment_set.iterator %}
       <div class="comment-content" id="comment-{{ comment.pk }}">
-        <img src="http://placehold.it/50x50" alt="">
-        <div class="comment-text">
-          <h5>{{ comment.author.username }} &nbsp;&nbsp;
+
+        <!-- 댓글 단 유저 정보 -->
+        <div class="comment-user">
+          <img class="comment-profile" src="http://placehold.it/40x40" alt="">
+          <span class="sub-font">
+            {{ comment.author.username }}<br>
             <small style="color: gray;">{{ comment.created_at }}</small>
-          </h5>
-          <p>{{ comment.content | linebreaks }}</p>
+          </span>
+        </div>
+
+        <!-- 댓글 내용 -->
+        <div class="comment-text">
+          <p>
+          <div class="sub-font">
+            {{ comment.content | linebreaks }}
+          </div>
+          </p>
         </div>
       </div>
       {% endfor %}

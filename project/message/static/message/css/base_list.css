@@ -44,22 +44,22 @@ body {
 }
 
 .container {
+    /* 컨텐츠의 최대 넓이 */
+    max-width: 1140px;
     display: grid;
     margin: 0 auto;
-    max-width: 1140px;
-    /* 컨텐츠의 최대 넓이 */
 }
 
 /* 카테고리 정렬 */
 .category-container {
     display: flex;
-    justify-content: center;
     /* 중앙 정렬 */
+    justify-content: center;
 }
 
 .category-content {
-    width: 100%;
     /* 너비를 100%로 유지 */
+    width: 100%;
     padding: 10px;
     margin: 5px;
     border-radius: 10px;
@@ -79,25 +79,25 @@ body {
 
 .icon-text-wrapper {
     display: flex;
-    flex-direction: column;
     /* 요소들을 세로 방향(위아래)으로 정렬 */
-    align-items: center;
+    flex-direction: column;
     /* 요소들을 수직(세로) 가운데 정렬 */
+    align-items: center;
 }
 
 /* 포스트 정렬 */
 .post-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     /* 3개의 그리드 아이템을 최소 300px 너비로 반복해서 출력 */
-    margin: 0 auto;
+    grid-template-columns: repeat(3, 1fr);
     /* 가운데 정렬 */
+    margin: 0 auto;
 }
 
 .post-content {
     background: #D9D9D9;
-    max-width: 100%;
     /* 컨텐츠의 최대 너비 */
+    max-width: 100%;
     padding: 15px;
     margin: 10px;
     margin-bottom: 50px;
