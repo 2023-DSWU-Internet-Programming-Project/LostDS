@@ -17,7 +17,6 @@ urlpatterns = [
     # path('message/', views.found, name='found'),
     # path('message/ask/', views.find, name='find'),
     # path('mypage/', views.mypage, name='mypage')
-    path('signup/', views.info, name='info')
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
