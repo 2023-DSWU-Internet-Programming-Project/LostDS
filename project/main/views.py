@@ -29,7 +29,7 @@ def find(request):
 def mypage(request):
     return render(
         request,'mypage/mypage.html'
-                  )
+    )
 
 def info(request):
     return render(

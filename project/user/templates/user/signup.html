@@ -41,8 +41,11 @@
         </div>
     </form>
 
-    {% if error %}
-        <p>{{ error }}</p>
+
+    {% if error_message %}
+    <script>
+        alert("{{ error_message }}");
+    </script>
     {% endif %}
     
     </div>
