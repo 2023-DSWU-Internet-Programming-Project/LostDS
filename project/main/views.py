@@ -26,8 +26,10 @@ def find(request):
         request,'message/askItem_list.html'
     )
 
-# def mypage(request):
-    # return render(request,'') html 페이지 적기
+def mypage(request):
+    return render(
+        request,'mypage/mypage.html'
+                  )
 
 def info(request):
     return render(
