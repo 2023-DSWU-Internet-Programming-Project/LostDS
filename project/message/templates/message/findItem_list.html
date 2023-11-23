@@ -38,16 +38,20 @@
     </div>
     <!-- 게시글 생성 버튼 및 '완료'페이지 이동 버튼 -->
     <a href="../complete_post/">찾아간 물품 보러가기</a>
-    <a href="">글 쓰기</a>
+    {% if user.is_authenticated %}
+    {% if user.is_superuser or user.is_staff %}
+    <a href="/message/find/create_post/">글 쓰기</a>
+    {% endif %}
+    {% endif %}
     <!-- 게시글 -->
     <div class="post-container">
         {% for item in object_list %}
         <a class="detail-link" href="{{ item.get_absolute_url }}">
             <div class="post-content">
                 {% if item.head_image %}
-                <img src="{{ item.head_image.url }}" width="350px" height="200px" alt="{{ item }} head image">
+                <img src="{{ item.head_image.url }}" style="border-radius: 10px 10px 0 0;" width="350px" height="200px" alt="{{ item }} head image">
                 {% else %}
-                <img src="https://picsum.photos/seed/{{ item.id }}/350/200" alt="random_image">
+                <img src="https://picsum.photos/seed/{{ item.id }}/350/200" style="border-radius: 10px 10px 0 0;" alt="random_image">
                 {% endif %}
                 <div class="post-text-box">
                     <h2>{{ item.title }}</h2>

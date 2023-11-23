@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>LostDS</title>
+</head>
+<body>
+<h1>Create New Post</h1>
+<hr/>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        {{ form }}
+    </table>
+    <button type="submit">등록</button>
+</form>
+</body>
+</html>

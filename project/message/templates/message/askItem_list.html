@@ -7,7 +7,7 @@
     <title>LostDS</title>
     <link rel="stylesheet" href="{% static 'message/css/base_list.css' %}" media="screen">
 </head>
-<body>
+<body style="background-image: url(/static/message/image/asklist.jpg);">
 <div class="container">
     <h1>물건을 잃어버리셨나요?<br>잃어버린 분실물을 올려주세요!</h1>
     <br/><br/>
@@ -37,7 +37,11 @@
         {%if category %}<span style="font-size: x-large; font-weight: 700;"># {{ category }}</span>{% endif %}
     </div>
     <!-- 게시글 생성 버튼 -->
-    <a href="">글 쓰기</a>
+    {% if user.is_authenticated %}
+    {% if user.is_superuser or user.is_staff %}
+    <a href="/message/ask/create_post/">글 쓰기</a>
+    {% endif %}
+    {% endif %}
     <!-- 게시글 -->
     <div class="post-container">
         <div class="post-container">
