@@ -1,0 +1,39 @@
+<!-- verification.html -->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <link rel="stylesheet" href="{% static 'user/css/verification.css' %}" media="screen">
+</head>
+<body>
+
+    <h1>LostDS</h1>
+
+    <div class="container">
+
+    <p>아래에 인증 토큰을 입력하여 회원가입을 완료해주세요.</p>
+
+    <form method="POST" action="{% url 'user:verification' %}">
+        {% csrf_token %}
+        
+        <input type="text" name="verification_token" required><br>
+
+        <div class="button-group">
+            <button type="submit" class="verification">인증 완료</button>
+        </div>
+    </form>
+    
+    {% if error_message %}
+    <script>
+        alert("{{ error_message }}");
+    </script>
+    {% endif %}
+    </div>
+
+</body>
+</html>
