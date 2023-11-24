@@ -2,56 +2,62 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <title>LostDS</title>
     <link rel="stylesheet" href="{% static 'message/css/base_list.css' %}" media="screen">
 </head>
-<body style="background-image: url(/static/message/image/asklist.jpg);">
-<div class="container">
-    <h1>물건을 잃어버리셨나요?<br>잃어버린 분실물을 올려주세요!</h1>
-    <br/><br/>
-    <!-- 카테고리 -->
-    <div class="category-container">
-        <div class="category-content">
-            <a class="detail-link" href="/message/ask/">
-                <div class="icon-text-wrapper">
-                    <img src="/static/message/image/all.png" width="60" height="60">
-                    <div class="category-font">전체</div>
-                </div>
-            </a>
+
+<body>
+    <div class="container">
+        <div class="main-title main-title-font">물건을 잃어버리셨나요?<br>잃어버린 분실물을 올려주세요!</div>
+        <!-- 게시글 생성 버튼 -->
+        <div class="post-button">
+            <div class="post-create-button">
+                {% if user.is_authenticated %}
+                <a href="/message/ask/create_post/">글 쓰기</a>
+                {% endif %}
+            </div>
         </div>
-        {% for category in categories %}
-        <div class="category-content">
-            <a class="detail-link" href="{{ category.get_absolute_url_ask }}">
-                <div class="icon-text-wrapper">
-                    <img src="{{ category.head_image.url }}" width="60" height="60">
-                    <div class="category-font">{{ category }}</div>
-                </div>
-            </a>
+
+        <!-- 카테고리 -->
+        <div class="category-container">
+            <div class="category-content">
+                <a class="detail-link" href="/message/ask/">
+                    <div class="icon-text-wrapper">
+                        <img src="/static/message/image/all.png" width="40" height="40">
+                        <div class="category-font">전체</div>
+                    </div>
+                </a>
+            </div>
+            {% for category in categories %}
+            <div class="category-content">
+                <a class="detail-link" href="{{ category.get_absolute_url_ask }}">
+                    <div class="icon-text-wrapper">
+                        <img src="{{ category.head_image.url }}" width="40" height="40">
+                        <div class="category-font">{{ category }}</div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-    <br/>
-    <div style="margin: 30px 0px">
-        {%if category %}<span style="font-size: x-large; font-weight: 700;"># {{ category }}</span>{% endif %}
-    </div>
-    <!-- 게시글 생성 버튼 -->
-    {% if user.is_authenticated %}
-    {% if user.is_superuser or user.is_staff %}
-    <a href="/message/ask/create_post/">글 쓰기</a>
-    {% endif %}
-    {% endif %}
-    <!-- 게시글 -->
-    <div class="post-container">
+        <br />
+        <div>
+            {%if category %}<span style="font-size: x-large; font-weight: 700;"># {{ category }}</span>{% endif %}
+        </div>
+
+        <!-- 게시글 -->
         <div class="post-container">
             {% for item in object_list %}
             <a class="detail-link" href="{{ item.get_absolute_url }}">
                 <div class="post-content">
                     {% if item.head_image %}
-                    <img src="{{ item.head_image.url }}" width="350px" height="200px" alt="{{ item }} head image">
+                    <img src="{{ item.head_image.url }}" style="border-radius: 10px 10px 0 0;" width="330px"
+                        height="200px" alt="{{ item }} head image">
                     {% else %}
-                    <img src="https://picsum.photos/seed/{{ item.id }}/350/200" alt="random_image">
+                    <img src="https://picsum.photos/seed/{{ item.id }}/330/200" style="border-radius: 10px 10px 0 0;"
+                        alt="random_image">
                     {% endif %}
                     <div class="post-text-box">
                         <h2>{{ item.title }}</h2>
@@ -62,7 +68,7 @@
                         {% else %}
                         <span style="color: gray;"># 기타</span>
                         {% endif %}
-                        <hr/>
+                        <hr />
                         <p>{{ item.content | truncatechars:20 }}</p>
                     </div>
                 </div>
@@ -70,6 +76,6 @@
             {% endfor %}
         </div>
     </div>
-</div>
 </body>
+
 </html>

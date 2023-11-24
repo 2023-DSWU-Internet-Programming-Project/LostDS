@@ -15,12 +15,22 @@
 
 body {
     font-family: 'EASTARJET-Medium';
+    background-image: url(/static/message/image/asklist.jpg);
     background-position: left bottom;
     background-position: left -50px bottom -45px;
     background-size: 630px 450px;
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
+
+.container {
+    /* 컨텐츠의 최대 넓이 */
+    width: 1140px;
+    display: grid;
+    margin: 70px auto;
+}
+
+.main-title {}
 
 /* a 태그 폰트 색상 및 밑줄 설정 */
 .detail-link {
@@ -43,14 +53,11 @@ body {
     color: black;
 }
 
-.container {
-    /* 컨텐츠의 최대 넓이 */
-    max-width: 1140px;
-    display: grid;
-    margin: 0 auto;
-}
 
-/* 카테고리 정렬 */
+
+
+
+/* 카테고리 CSS */
 .category-container {
     display: flex;
     /* 중앙 정렬 */
@@ -59,9 +66,10 @@ body {
 
 .category-content {
     /* 너비를 100%로 유지 */
-    width: 100%;
+    width: 80px;
+    height: 80px;
     padding: 10px;
-    margin: 5px;
+    margin: 5px auto;
     border-radius: 10px;
     background: #E8E6D5;
     box-shadow: 5px 5px #FAF2D2;
@@ -79,16 +87,21 @@ body {
 
 .icon-text-wrapper {
     display: flex;
+    margin-top: 5px;
     /* 요소들을 세로 방향(위아래)으로 정렬 */
     flex-direction: column;
     /* 요소들을 수직(세로) 가운데 정렬 */
     align-items: center;
 }
 
-/* 포스트 정렬 */
+
+
+
+
+/* 포스트 CSS */
 .post-container {
     display: grid;
-    /* 3개의 그리드 아이템을 최소 300px 너비로 반복해서 출력 */
+    /* 3개의 그리드 아이템을 350px 너비로 반복해서 출력 */
     grid-template-columns: repeat(3, 1fr);
     /* 가운데 정렬 */
     margin: 0 auto;
@@ -115,4 +128,29 @@ body {
     background: #FFFFFF;
     padding: 20px;
     border-radius: 0 0 10px 10px;
+}
+
+
+
+
+
+/* 폰트 CSS */
+.main-title-font {
+    font-size: xx-large;
+    font-weight: 900;
+}
+
+
+
+
+
+/* 버튼 CSS */
+.post-button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.post-list-move-button,
+.post-create-button {
+    margin: 5px 10px;
 }

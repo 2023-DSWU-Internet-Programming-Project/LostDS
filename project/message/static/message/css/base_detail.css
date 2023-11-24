@@ -19,16 +19,21 @@
 
 body {
     font-family: 'EASTARJET-Medium';
+    margin: auto;
 }
 
 .container {
     /* 컨텐츠의 최대 넓이 */
-    max-width: 1140px;
+    width: 960px;
     display: grid;
-    margin: 30px auto;
+    margin: 70px auto;
 }
 
-button {}
+.main-title {
+    display: flex;
+    justify-content: space-between;
+    align-items:end;
+}
 
 /* a 태그 폰트 색상 및 밑줄 설정 */
 .detail-link {
@@ -36,20 +41,20 @@ button {}
 }
 
 .detail-link:link {
-    color: gray;
+    color: black;
 }
 
 .detail-link:visited {
-    color: gray;
+    color: black;
 }
 
 .detail-link:hover {
-    color: gray;
+    color: black;
     text-decoration-line: underline;
 }
 
 .detail-link:active {
-    color: gray;
+    color: black;
 }
 
 
@@ -60,15 +65,24 @@ button {}
 .content-container {
     /* 컨텐츠의 최대 너비 */
     max-width: 100%;
-    margin: 70px 0 20px 0;
-    box-shadow: 5px 5px 5px #D9D9D9, -1px -1px 2px #D9D9D9;
-    border-radius: 10px;
-    padding: 20px 30px;
+    margin: 10px 0;
+    /* box-shadow: 5px 5px 5px #D9D9D9, -1px -1px 2px #D9D9D9; */
 }
 
-.title-content {}
+.title-content {
+    background-color: #E5EFD5;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
 
-.content-content {}
+.content-content {
+    background-color: #E5EFD5;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+}
 
 
 
@@ -79,20 +93,34 @@ button {}
     /* 컨텐츠의 최대 너비 */
     max-width: 100%;
     margin-bottom: 20px 0 70px 0;
-    box-shadow: 5px 5px 5px #D9D9D9, -1px -1px 2px #D9D9D9;
-    border-radius: 10px;
-    padding: 20px 30px;
+    border: 5px solid #E5EFD5;
+    /* box-shadow: 5px 5px 5px #D9D9D9, -1px -1px 2px #D9D9D9; */
+    border-radius: 20px;
+    padding: 20px;
 }
 
-.comment-content {}
-
-.comment-profile {
-    border-radius: 10px;
+.comment-title {
+    margin: 10px 20px;
 }
 
-.comment-user {}
+.comment-content {
+    margin: 30px 0;
+}
 
-.comment-text {}
+.comment-form {
+    display: flex;
+    align-items: center;
+}
+
+.comment-profile-img {
+    border-radius: 10px;
+    float: left; 
+    margin-right: 10px;
+}
+
+.comment-text {
+    margin: 0 50px;
+}
 
 
 
@@ -118,4 +146,50 @@ button {}
 .content-font {
     font-size: large;
     font-weight: 500;
+}
+
+.comment-title-font {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.comment-info-font {
+    font-size: medium;
+    font-weight: 600;
+}
+
+.comment-content-font {
+    font-size: medium;
+    font-weight: 300;
+}
+
+
+
+
+
+/* 버튼 CSS */
+.content-revise-delete-button {
+    display: flex;
+    align-items: center;
+    float: right;
+    margin-right: 30px;
+    font-size: large;
+    font-weight: 500;
+}
+
+.content-confirm-button {
+    float: right;
+}
+
+.comment-form-button {
+    width: 70px;
+    height: 105.6px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 10px;
+}
+
+.comment-delete-button {
+    display: inline;
+    float: right;
 }

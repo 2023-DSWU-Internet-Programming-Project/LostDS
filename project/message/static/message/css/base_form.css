@@ -1,0 +1,46 @@
+@font-face {
+    font-family: 'MaruBuri';
+    font-weight: 700;
+    font-style: normal;
+    src: url(https://cdn.jsdelivr.net/gh/webfontworld/naver/MaruBuri-Bold.woff2) format('woff2');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EASTARJET-Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/EASTARJET-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+
+
+
+
+body {
+    font-family: 'EASTARJET-Medium';
+    margin: auto;
+}
+
+.container {
+    /* 컨텐츠의 최대 넓이 */
+    width: 960px;
+    display: grid;
+    margin: 70px auto;
+}
+
+.main-title {
+    display: flex;
+    justify-content: space-between;
+    align-items:end;
+}
+
+
+
+
+
+/* 폰트 CSS */
+.main-title-font {
+    font-size: xx-large;
+    font-weight: 900;
+}

@@ -9,46 +9,96 @@
 </head>
 
 <body>
+    <!-- 디테일 페이지 컨테이너 -->
     <div class="container">
-        <h1>요청 물품 상세 페이지</h1>
-        <h2>{{ ask.title }}</h2>
-        <h4>{{ ask.author }}</h4>
-        <h5>{{ ask.created_at }}</h5>
-        {% if ask.category %}
-        <span style="color: gray;"># {{ ask.category }}</span>
-        {% else %}
-        <span style="color: gray;"># 기타</span>
-        {% endif %}
-        {% if user.is_authenticated and user == ask.author %}
-        <a href="/message/ask/update_post/{{ ask.pk }}/" role="button">수정</a>
-        <a href="/message/ask/delete_post/{{ ask.pk }}/" role="button">삭제</a>
-        {% endif %}
-        <p>{{ ask.content }}</p>
+        <div class="main-title">
+            <div class="main-font">잃어버렸나요?</div>
+            <span class="content-revise-delete-button">
+                {% if user.is_authenticated %}
+                {% if user == ask.author or user.is_superuser or user.is_staff %}
+                <a class="detail-link" href="/message/ask/update_post/{{ ask.pk }}/">수정</a>
+                &nbsp;&nbsp;&nbsp;
+                <a class="detail-link" href="/message/ask/delete_post/{{ ask.pk }}/">삭제</a>
+                {% endif %}
+                {% endif %}
+            </span>
+        </div>
 
-        <!-- 댓글 -->
+        <!-- 게시글 컨테이너 -->
+        <div class="content-container">
+            <!-- 게시글 속성(제목, 카테고리 등) 컨텐츠 -->
+            <div class="title-content">
+                <div class="title-font">
+                    {{ ask.title }}
+                </div>
+                <div class="sub-font">
+                    작성자 | {{ ask.author }}<br />
+                    작성일 | {{ ask.created_at }}<br /><br />
+                    {% if ask.category %}
+                    <span style="color: gray;"># {{ ask.category }}</span>
+                    {% else %}
+                    <span style="color: gray;"># 기타</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- 게시글 내용 컨텐츠 -->
+            <div class="content-content">
+                {% if ask.head_image %}
+                <img src="{{ ask.head_image.url }}" width="920px" style="border-radius: 20px;"
+                    alt="{{ ask }} head image">
+                {% endif %}
+                <p class="content-font">{{ ask.content | linebreaks }}</p>
+            </div>
+        </div>
+
+        <!-- 댓글 컨테이너 -->
+        <div class="comment-title-font comment-title">
+            댓글
+        </div>
         <div class="comment-container">
             {% if user.is_authenticated %}
+            <!-- 댓글 입력 폼 -->
             <form id="comment-form" method="POST" action="/message/ask/{{ ask.pk }}/new_comment/">
                 {% csrf_token %}
-                <div>
+                <div class="comment-form">
                     {{ comment_form }}
+                    <button class="comment-form-button" type="submit">등록</button>
                 </div>
-                <button type="submit">등록</button>
             </form>
             {% else %}
-            <a role="button" href="#">로그인하신 후 이용 가능합니다.</a>
+            <a class="sub-font" role="button" href="/login/">로그인 후 이용 가능합니다.</a>
             {% endif %}
+
+            <!-- 댓글 컨텐츠 -->
             {% if ask.comment_set.exists %}
             {% for comment in ask.comment_set.iterator %}
             <div class="comment-content" id="comment-{{ comment.pk }}">
-                <img src="http://placehold.it/50x50" alt="">
+
+                <!-- 댓글 단 유저 정보 -->
+                <img class="comment-profile-img" src="http://placehold.it/40x40" alt="">
+                <div class="comment-info-font">
+                    {{ comment.author.username }}<br />
+                    <small style="color: gray;">{{ comment.created_at }}</small>
+                    {% if user.is_authenticated %}
+                    {% if user == comment.author or user.is_superuser or user.is_staff %}
+                    <button class="comment-delete-button" type="button"
+                        onclick="location.href='/message/ask/delete_comment/{{ comment.pk }}/'">삭제
+                    </button>
+                    {% endif %}
+                    {% endif %}
+                </div>
+
+                <!-- 댓글 내용 -->
                 <div class="comment-text">
-                    <h5>{{ comment.author.username }} &nbsp;&nbsp;
-                        <small style="color: gray;">{{ comment.created_at }}</small>
-                    </h5>
-                    <p>{{ comment.content | linebreaks }}</p>
+                    <p>
+                    <div class="comment-content-font">
+                        {{ comment.content | linebreaks }}
+                    </div>
+                    </p>
                 </div>
             </div>
+            <hr />
             {% endfor %}
             {% endif %}
         </div>
