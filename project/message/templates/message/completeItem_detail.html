@@ -1,48 +1,93 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <title>LostDS</title>
     <link rel="stylesheet" href="{% static 'message/css/base_detail.css' %}" media="screen">
 </head>
-<body>
-<div class="container">
-    <h1>완료 물품 상세 페이지</h1>
-    <div class="title-content">
-        <h2>{{ complete.title }}</h2>
-        <h4>{{ complete.author }}</h4>
-        <h5>{{ complete.created_at }}</h5>
-        {% if complete.category %}
-        <span style="color: gray;"># {{ complete.category }}</span>
-        {% else %}
-        <span style="color: gray;"># 기타</span>
-        {% endif %}
-    </div>
-    <hr/>
-    <div class="content-content">
-        <p>{{ complete.content }}</p>
-        {% if user.is_authenticated and user == complete.author %}
-        <a href="/message/complete/delete_post/{{ complete.pk }}/" role="button">삭제</a>
-        {% endif %}
-    </div>
 
-    <!-- 댓글 -->
-    <div class="comment-container">
-        {% if complete.comment_set.exists %}
-        {% for comment in complete.comment_set.iterator %}
-        <div class="comment-content" id="comment-{{ comment.pk }}">
-            <img src="http://placehold.it/50x50" alt="">
-            <div class="comment-text">
-                <h5>{{ comment.author.username }} &nbsp;&nbsp;
-                    <small style="color: gray;">{{ comment.created_at }}</small>
-                </h5>
-                <p>{{ comment.content | linebreaks }}</p>
+<body>
+    <!-- 디테일 페이지 컨테이너 -->
+    <div class="container">
+        <div class="main-title">
+            <div class="main-font">찾아간 물건들을 알려드립니다!</div>
+            <span class="content-revise-delete-button">
+                {% if user.is_authenticated %}
+                {% if user == find.author or user.is_superuser or user.is_staff %}
+                <a class="detail-link" href="/message/complete/delete_post/{{ complete.pk }}/">삭제</a>
+                {% endif %}
+                {% endif %}
+            </span>
+        </div>
+
+        <!-- 게시글 컨테이너 -->
+        <div class="content-container">
+            <!-- 게시글 속성(제목, 카테고리 등) 컨텐츠 -->
+            <div class="title-content">
+                <div class="title-font">
+                    {{ complete.title }}
+                </div>
+                <div class="sub-font">
+                    작성자 | {{ complete.author }}<br />
+                    작성일 | {{ complete.created_at }}<br /><br />
+                    {% if complete.category %}
+                    <span style="color: gray;"># {{ complete.category }}</span>
+                    {% else %}
+                    <span style="color: gray;"># 기타</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- 게시글 내용 컨텐츠 -->
+            <div class="content-content">
+                {% if complete.head_image %}
+                <img src="{{ complete.head_image.url }}" width="920px" style="border-radius: 20px;"
+                    alt="{{ complete }} head image">
+                {% endif %}
+                <p class="content-font">{{ complete.content | linebreaks }}</p>
             </div>
         </div>
-        {% endfor %}
-        {% endif %}
+
+        <!-- 댓글 컨테이너 -->
+        <div class="comment-title-font comment-title">
+            댓글
+        </div>
+        <!-- 댓글 컨텐츠 -->
+        <div class="comment-container">
+            {% if complete.comment_set.exists %}
+            {% for comment in complete.comment_set.iterator %}
+            <div class="comment-content" id="comment-{{ comment.pk }}">
+
+                <!-- 댓글 단 유저 정보 -->
+                <img class="comment-profile-img" src="http://placehold.it/40x40" alt="">
+                <div class="comment-info-font">
+                    {{ comment.author.username }}<br />
+                    <small style="color: gray;">{{ comment.created_at }}</small>
+                    {% if user.is_authenticated %}
+                    {% if user == comment.author or user.is_superuser or user.is_staff %}
+                    <button class="comment-delete-button" type="button"
+                        onclick="location.href='/message/complete/delete_comment/{{ comment.pk }}/'">삭제
+                    </button>
+                    {% endif %}
+                    {% endif %}
+                </div>
+
+                <!-- 댓글 내용 -->
+                <div class="comment-text">
+                    <p>
+                    <div class="comment-content-font">
+                        {{ comment.content | linebreaks }}
+                    </div>
+                    </p>
+                </div>
+            </div>
+            <hr />
+            {% endfor %}
+            {% endif %}
+        </div>
     </div>
-</div>
 </body>
+
 </html>

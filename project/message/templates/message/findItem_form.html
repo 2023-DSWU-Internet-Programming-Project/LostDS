@@ -1,18 +1,25 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <title>LostDS</title>
+    <link rel="stylesheet" href="{% static 'message/css/base_form.css' %}" media="screen">
 </head>
+
 <body>
-<h1>Create New Post</h1>
-<hr/>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <table>
-        {{ form }}
-    </table>
-    <button type="submit">등록</button>
-</form>
+    <!-- 게시글 생성/수정 페이지 컨테이너 -->
+    <div class="container">
+        <div class="main-title main-title-font">물건을 습득하셨나요?<br>습득하신 분실물을 올려주세요!</div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                {{ form }}
+            </table>
+            <button type="submit">등록</button>
+        </form>
+    </div>
 </body>
+
 </html>

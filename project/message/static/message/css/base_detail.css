@@ -13,35 +13,183 @@
     font-style: normal;
 }
 
+
+
+
+
 body {
     font-family: 'EASTARJET-Medium';
+    margin: auto;
 }
 
 .container {
     /* 컨텐츠의 최대 넓이 */
-    max-width: 1140px;
+    width: 960px;
     display: grid;
-    margin: 0 auto;
+    margin: 70px auto;
+}
+
+.main-title {
+    display: flex;
+    justify-content: space-between;
+    align-items:end;
+}
+
+/* a 태그 폰트 색상 및 밑줄 설정 */
+.detail-link {
+    text-decoration-line: none;
+}
+
+.detail-link:link {
+    color: black;
+}
+
+.detail-link:visited {
+    color: black;
+}
+
+.detail-link:hover {
+    color: black;
+    text-decoration-line: underline;
+}
+
+.detail-link:active {
+    color: black;
+}
+
+
+
+
+
+/* 게시글 CSS */
+.content-container {
+    /* 컨텐츠의 최대 너비 */
+    max-width: 100%;
+    margin: 10px 0;
+    /* box-shadow: 5px 5px 5px #D9D9D9, -1px -1px 2px #D9D9D9; */
 }
 
 .title-content {
-    /* 컨텐츠의 최대 너비 */
-    max-width: 100%;
-    box-shadow: 5px 5px 5px #D9D9D9, -1px -1px 2px #D9D9D9;
-    border-radius: 10px;
-    margin: 0px 10px 20px 10px;
+    background-color: #E5EFD5;
+    border: 1px solid black;
+    border-radius: 20px;
     padding: 20px;
+    margin-bottom: 20px;
 }
 
 .content-content {
-    /* 컨텐츠의 최대 너비 */
-    max-width: 100%;
-    box-shadow: 5px 5px 5px #D9D9D9, -1px -1px 2px #D9D9D9;
-    border-radius: 10px;
-    margin: 0px 10px 20px 10px;
+    background-color: #E5EFD5;
+    border: 1px solid black;
+    border-radius: 20px;
     padding: 20px;
 }
 
-.comment-container {}
 
-.comment-content {}
+
+
+
+/* 댓글 CSS */
+.comment-container {
+    /* 컨텐츠의 최대 너비 */
+    max-width: 100%;
+    margin-bottom: 20px 0 70px 0;
+    border: 5px solid #E5EFD5;
+    /* box-shadow: 5px 5px 5px #D9D9D9, -1px -1px 2px #D9D9D9; */
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.comment-title {
+    margin: 10px 20px;
+}
+
+.comment-content {
+    margin: 30px 0;
+}
+
+.comment-form {
+    display: flex;
+    align-items: center;
+}
+
+.comment-profile-img {
+    border-radius: 10px;
+    float: left; 
+    margin-right: 10px;
+}
+
+.comment-text {
+    margin: 0 50px;
+}
+
+
+
+
+
+/* 폰트 CSS */
+.main-font {
+    font-size: xx-large;
+    font-weight: 900;
+}
+
+.title-font {
+    font-size: x-large;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.sub-font {
+    font-size: medium;
+    font-weight: 500;
+}
+
+.content-font {
+    font-size: large;
+    font-weight: 500;
+}
+
+.comment-title-font {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.comment-info-font {
+    font-size: medium;
+    font-weight: 600;
+}
+
+.comment-content-font {
+    font-size: medium;
+    font-weight: 300;
+}
+
+
+
+
+
+/* 버튼 CSS */
+.content-revise-delete-button {
+    display: flex;
+    align-items: center;
+    float: right;
+    margin-right: 30px;
+    font-size: large;
+    font-weight: 500;
+}
+
+.content-confirm-button {
+    float: right;
+}
+
+.comment-form-button {
+    width: 70px;
+    height: 105.6px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 10px;
+}
+
+.comment-delete-button {
+    display: inline;
+    float: right;
+}

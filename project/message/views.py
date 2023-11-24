@@ -40,11 +40,11 @@ class FindPostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     context_object_name = 'find'
 
     def test_func(self):
-        return self.request.user.is_superuser or self.request.user.is_staff
+        return self.request.user.is_authenticated
 
     def form_valid(self, form):
         current_user = self.request.user
-        if current_user.is_authenticated and (current_user.is_staff or current_user.is_superuser):
+        if current_user.is_authenticated:
             form.instance.author = current_user
             return super(FindPostCreate, self).form_valid(form)
         else:
@@ -59,7 +59,8 @@ class FindPostUpdate(LoginRequiredMixin, UpdateView):
     context_object_name = 'find'
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and request.user == self.get_object().author:
+        if (request.user.is_authenticated and
+                (request.user == self.get_object().author or request.user.is_superuser or request.user.is_staff)):
             return super(FindPostUpdate, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
@@ -72,7 +73,8 @@ class FindPostDelete(LoginRequiredMixin, DeleteView):
     context_object_name = 'find'
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and request.user == self.get_object().author:
+        if (request.user.is_authenticated and
+                (request.user == self.get_object().author or request.user.is_superuser or request.user.is_staff)):
             return super(FindPostDelete, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
@@ -112,7 +114,7 @@ class AskPostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     context_object_name = 'ask'
 
     def test_func(self):
-        return self.request.user.is_superuser or self.request.user.is_staff
+        return self.request.user.is_authenticated
 
     def form_valid(self, form):
         current_user = self.request.user
@@ -130,6 +132,13 @@ class AskPostUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'message/askItem_update_form.html'
     context_object_name = 'ask'
 
+    def dispatch(self, request, *args, **kwargs):
+        if (request.user.is_authenticated and
+                (request.user == self.get_object().author or request.user.is_superuser or request.user.is_staff)):
+            return super(AskPostUpdate, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
 
 # 분실물 페이지 게시글 삭제 뷰
 class AskPostDelete(LoginRequiredMixin, DeleteView):
@@ -138,7 +147,8 @@ class AskPostDelete(LoginRequiredMixin, DeleteView):
     context_object_name = 'ask'
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and request.user == self.get_object().author:
+        if (request.user.is_authenticated and 
+            (request.user == self.get_object().author or request.user.is_superuser or request.user.is_staff)):
             return super(AskPostDelete, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
@@ -147,6 +157,7 @@ class AskPostDelete(LoginRequiredMixin, DeleteView):
 # 완료 처리된 페이지 리스트 뷰
 class completeList(ListView):
     model = CompleteItem
+    ordering = '-pk'
     template_name = 'message/completeItem_list.html'
 
     def get_context_data(self, **kwargs):
@@ -171,11 +182,12 @@ class completeDetail(DetailView):
 # 완료 처리된 페이지 게시글 삭제 뷰
 class CompletePostDelete(LoginRequiredMixin, DeleteView):
     model = CompleteItem
-    success_url = '/message/complete/'
+    success_url = '/message/complete_post/'
     context_object_name = 'complete'
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and request.user == self.get_object().author:
+        if (request.user.is_authenticated and
+                (request.user == self.get_object().author or request.user.is_superuser or request.user.is_staff)):
             return super(CompletePostDelete, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
@@ -287,3 +299,35 @@ def new_comment_ask(request, pk):
             return redirect(post.get_absolute_url())
     else:
         raise PermissionDenied
+
+# 댓글 삭제
+def delete_comment_find(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    post = comment.findPost
+    if request.user.is_authenticated:
+        if request.user == comment.author or request.user.is_superuser or request.user.is_staff:
+            comment.delete()
+            return redirect(post.get_absolute_url())
+    else:
+        raise PermissionDenied
+    
+
+def delete_comment_ask(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    post = comment.askPost
+    if request.user.is_authenticated and request.user == comment.author:
+        comment.delete()
+        return redirect(post.get_absolute_url())
+    else:
+        raise PermissionDenied
+    
+
+def delete_comment_complete(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    post = comment.completePost
+    if request.user.is_authenticated and request.user == comment.author:
+        comment.delete()
+        return redirect(post.get_absolute_url())
+    else:
+        raise PermissionDenied
+
