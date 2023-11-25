@@ -6,7 +6,7 @@ from django.conf import settings
 class Category(models.Model):
     name = models.CharField(max_length=10, unique=True)
     slug = models.SlugField(max_length=100, unique=True, allow_unicode=True)
-    head_image = models.ImageField(upload_to='message/images/category/%Y/%m/%d/', blank=True)
+    head_image = models.ImageField(upload_to='message/images/category/', blank=True)
 
     def __str__(self):
         return self.name

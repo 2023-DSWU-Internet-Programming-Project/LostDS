@@ -6,19 +6,76 @@
     <meta charset="UTF-8">
     <title>LostDS</title>
     <link rel="stylesheet" href="{% static 'message/css/base_form.css' %}" media="screen">
+
+    <script>
+        // 카테고리 필수 선택 알람
+        function checkSelection() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            if (checkboxes.length === 0) {
+                alert('카테고리는 필수 선택 항목입니다. 옵션을 선택하세요.');
+                return false;
+            }
+            return true;
+        }
+
+        // 이미지 파일 첨부 시 이미지 미리보기
+        function previewImage(input) {
+            var preview = document.getElementById('imagePreview');
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </head>
 
 <body>
     <!-- 게시글 생성/수정 페이지 컨테이너 -->
     <div class="container">
         <div class="main-title main-title-font">물건을 습득하셨나요?<br>습득하신 분실물을 올려주세요!</div>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <table>
-                {{ form }}
-            </table>
-            <button type="submit">등록</button>
-        </form>
+        <div class="form-container">
+            <form class="form" method="post" enctype="multipart/form-data" onsubmit="return checkSelection()">
+                {% csrf_token %}
+                <div class="form-content-info">
+                    <div class="form-title-container">
+                        <div class="form-label">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</div>
+                        <div class="form-title-input">{{ form.title }}</div>
+                    </div>
+                    <div class="form-category-container">
+                        <div class="form-label">카테고리</div>
+                        <div class="form-category-select">
+                            {% for value, label in form.fields.category.choices %}
+                            {% if forloop.first %}
+                            {% else %}
+                            <div class="form-category-select-element">
+                                <input type="radio" id="category_{{ forloop.counter }}" name="category"
+                                    value="{{ value }}">
+                                <label for="category_{{ forloop.counter }}">{{ label }}</label>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-content">
+                    <div class="form-image-container">
+                        <div class="form-image-file">{{ form.head_image }}</div>
+                    </div>
+                    <div class="form-content-container">
+                        <div class="form-content-input">{{ form.content }}</div>
+                    </div>
+                    <div class="submit-button">
+                        <button type="submit">등록</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 
