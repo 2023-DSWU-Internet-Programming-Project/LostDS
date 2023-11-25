@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class Category(models.Model):
@@ -28,7 +29,7 @@ class FindItem(models.Model):
     title = models.CharField(max_length=20)
 
     # 작성자
-    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
 
     # 포스트 생성일
     created_at = models.DateTimeField(auto_now_add=True)
@@ -54,7 +55,7 @@ class AskItem(models.Model):
     title = models.CharField(max_length=20)
 
     # 작성자
-    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
 
     # 포스트 생성일
     created_at = models.DateTimeField(auto_now_add=True)
@@ -80,7 +81,7 @@ class CompleteItem(models.Model):
     title = models.CharField(max_length=20)
 
     # 작성자
-    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
 
     # 포스트 생성일
     created_at = models.DateTimeField()
@@ -104,7 +105,7 @@ class Comment(models.Model):
     findPost = models.ForeignKey(FindItem, on_delete=models.CASCADE, null=True, blank=True)
     askPost = models.ForeignKey(AskItem, on_delete=models.CASCADE, null=True, blank=True)
     completePost = models.ForeignKey(CompleteItem, on_delete=models.CASCADE, null=True, blank=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
