@@ -1,0 +1,68 @@
+/* 게시글 리스트가 보이는 css 코드(my-post와 연결) */
+@font-face {
+    font-family: 'PuradakGentleGothicR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.1/PuradakGentleGothicR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    text-shadow: 100px;
+}
+
+@font-face {
+    font-family: 'EASTARJET-Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/EASTARJET-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+body {
+    font-family: 'EASTARJET-Medium';
+    background-color: #E8E6D5;
+    display: flex;
+    justify-content: center;    /* 컨텐츠 중앙 정렬 */
+    flex-direction: column;
+}
+
+.container {
+    background-color: white;
+    border-radius: 30px;
+    margin: 0 auto;             /* 중앙 정렬 */
+    width: 60%;
+    height: 800px;
+    top: 95px;
+    position: relative;
+    display: block;
+    flex-direction: column;     /* 중심축 방향 변경 */
+    align-items: center;        /* 보조 축 방향에서 배치 변경 */
+    justify-content: center;    /* 중심축 방향에서 배치 변경 */
+}
+
+h2 {
+    font-size: 27px;
+    margin-left: 42px;
+    margin-top: 40px;
+}
+
+.post-group {
+    border-style: solid;
+    border-color: #D4E7B5;
+    border-width: 3px;
+    border-radius: 30px;
+    width: 93%;
+    height: 660px;
+    margin-left: 35px;
+}
+
+.post-list {
+    background-color: #E5EFD5;
+    margin: 20px 15px;
+    border-style: solid;
+    border-color: #FFFFFF;
+    border-width: 1px;
+    border-radius: 30px;
+    width: 97%;
+    height: 140px;
+}
+
+.post-list:hover {
+    border-color: black;
+}

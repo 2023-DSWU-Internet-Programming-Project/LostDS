@@ -3,7 +3,6 @@ venv
 secrets.json
 project/secrets.json
 BASE_DIR/secrets.json
-_media/
 *.idea
 .idea
 __pycache__/

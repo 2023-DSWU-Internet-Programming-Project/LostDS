@@ -1,18 +1,33 @@
 {% extends 'main/nav.html' %}
 
-
 {% block content %}
+{% load static %}
 
+<!-- 내가 쓴 게시글 목록 페이지 html -->
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>My Post</title>
+    <link rel="stylesheet" href="{% static 'mypage/css/mypost.css' %}" media="screen">
 </head>
 
 <body>
-<div class="container">
-    <br/><br/><h1 style="margin-left:300px">내가 쓴 게시글</h1><br/><br/>
-</div>
+
+    <div class="container">
+
+        <div class="post">
+            <h2>내가 쓴 게시글</h2>
+        </div>
+
+        <div class="post-group">
+            <!-- 내가 쓴 게시글 불러오는 공간 -->
+            <div class="post-list"></div>
+<!--            <div class="post-list"></div>-->
+<!--            <div class="post-list"></div>-->
+<!--            <div class="post-list"></div>-->
+        </div>
+
+    </div>
 <!--    {% for posts in posts %}-->
 <!--        <hr/>-->
 <!--        <h2>{{ posts.title }}</h2>-->
