@@ -19,7 +19,11 @@
 
 body {
     font-family: 'EASTARJET-Medium';
-    margin: auto;
+    background-image: url(/static/message/image/detail.jpg);
+    background-position: left -20px bottom -10px;
+    background-size: 450px 360px;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 .container {
@@ -32,7 +36,7 @@ body {
 .main-title {
     display: flex;
     justify-content: space-between;
-    align-items:end;
+    align-items: end;
 }
 
 /* a 태그 폰트 색상 및 밑줄 설정 */
@@ -77,11 +81,30 @@ body {
     margin-bottom: 20px;
 }
 
+.content-title {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+}
+
 .content-content {
     background-color: #E5EFD5;
     border: 1px solid black;
     border-radius: 20px;
     padding: 20px;
+}
+
+.content-content-img {
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.content-content-text {
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 0px 20px;
+    background-color: white;
 }
 
 
@@ -93,6 +116,7 @@ body {
     /* 컨텐츠의 최대 너비 */
     max-width: 100%;
     margin-bottom: 20px 0 70px 0;
+    background-color: white;
     border: 5px solid #E5EFD5;
     /* box-shadow: 5px 5px 5px #D9D9D9, -1px -1px 2px #D9D9D9; */
     border-radius: 20px;
@@ -114,7 +138,7 @@ body {
 
 .comment-profile-img {
     border-radius: 10px;
-    float: left; 
+    float: left;
     margin-right: 10px;
 }
 

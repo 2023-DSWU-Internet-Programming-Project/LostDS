@@ -15,8 +15,7 @@
 
 body {
     font-family: 'EASTARJET-Medium';
-    background-image: url(/static/message/image/asklist.jpg);
-    background-position: left bottom;
+    background-image: url(/static/message/image/list.jpg);
     background-position: left -50px bottom -45px;
     background-size: 630px 450px;
     background-attachment: fixed;

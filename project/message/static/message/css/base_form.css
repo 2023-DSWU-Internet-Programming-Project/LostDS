@@ -19,14 +19,18 @@
 
 body {
     font-family: 'EASTARJET-Medium';
-    margin: auto;
+    background-image: url(/static/message/image/form.jpg);
+    background-position: left 0 bottom -30px;
+    background-size: 480px 270px;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 .container {
     /* 컨텐츠의 최대 넓이 */
     width: 960px;
     display: grid;
-    margin: 70px auto;
+    margin: 70px auto 0px auto;
 }
 
 .main-title {
@@ -39,8 +43,95 @@ body {
 
 
 
+/* 작성 폼 CSS */
+.form-container{
+    max-width: 100%;
+    margin: 10px 0;
+}
+
+.form {
+    width: 960px;
+}
+
+.form-content {
+    background-color: #E5EFD5;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px 20px 40px 20px;
+}
+
+.form-content-info {
+    background-color: #E5EFD5;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.form-title-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-title-input {
+    width: 100%;
+}
+
+.form-category-container {
+    display: flex;
+    align-items: center;
+}
+
+.form-label {
+    font-size: medium;
+    font-weight: 600;
+    width: 100px;
+    text-align: left;
+}
+
+input[type=text] {
+    width: 100%;
+    box-sizing: border-box; /* 내부 여백이 크기에 영향을 주지 않음 */
+    padding: 5px 10px;
+    border-radius: 10px; 
+}
+
+.form-category-select {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.form-image-file {
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    height: 350px;
+    padding: 10px;
+    box-sizing: border-box; /* 내부 여백이 크기에 영향을 주지 않음 */
+    border-radius: 10px; 
+    resize: none;
+}
+
+
+
+
+
 /* 폰트 CSS */
 .main-title-font {
     font-size: xx-large;
     font-weight: 900;
+}
+
+
+
+
+
+/* 버튼 CSS */
+.submit-button {
+    float: right;
+    margin: 5px 0;
 }
