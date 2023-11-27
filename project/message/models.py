@@ -26,7 +26,7 @@ class Category(models.Model):
 
 class FindItem(models.Model):
     # 포스트 제목
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=30)
 
     # 작성자
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
@@ -52,7 +52,7 @@ class FindItem(models.Model):
 
 class AskItem(models.Model):
     # 포스트 제목
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=30)
 
     # 작성자
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
@@ -78,7 +78,7 @@ class AskItem(models.Model):
 
 class CompleteItem(models.Model):
     # 포스트 제목
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=30)
 
     # 작성자
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)

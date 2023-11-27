@@ -13,15 +13,26 @@
     <div class="container">
         <div class="main-title">
             <div class="main-font">주인을 찾아요!</div>
-            <span class="content-revise-delete-button">
+
+            <!-- 게시글 수정 및 삭제 버튼 -->
+            <div class="function_button">
                 {% if user.is_authenticated %}
                 {% if user == find.author or user.is_superuser or user.is_staff %}
-                <a class="detail-link" href="/message/find/update_post/{{ find.pk }}/">수정</a>
-                &nbsp;&nbsp;&nbsp;
-                <a class="detail-link" href="/message/find/delete_post/{{ find.pk }}/">삭제</a>
+                <a class="detail-link" href="/message/find/update_post/{{ find.pk }}/">
+                    <div class="content-revise-delete-button">
+                        <img src="/static/message/image/editing_icon.png" width="30" height="30">
+                        수정
+                    </div>
+                </a>
+                <a class="detail-link" href="/message/find/delete_post/{{ find.pk }}/">
+                    <div class="content-revise-delete-button">
+                        <img src="/static/message/image/delete_icon.png" width="30" height="30">
+                        삭제
+                    </div>
+                </a>
                 {% endif %}
                 {% endif %}
-            </span>
+            </div>
         </div>
 
         <!-- 게시글 컨테이너 -->
@@ -58,8 +69,7 @@
             <div class="content-content">
                 {% if find.head_image %}
                 <div class="content-content-img">
-                    <img src="{{ find.head_image.url }}" width="920px"
-                        style="border-radius: 20px; border: 1px solid black;" alt="{{ find }} head image">
+                    <img class="content-image" src="{{ find.head_image.url }}" alt="{{ find }} head image">
                 </div>
                 {% endif %}
                 <div class="content-content-text">

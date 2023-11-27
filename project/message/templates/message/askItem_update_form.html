@@ -1,18 +1,115 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <title>LostDS</title>
+    <link rel="stylesheet" href="{% static 'message/css/base_form.css' %}" media="screen">
+
+    <script>
+
+    </script>
 </head>
+
 <body>
-<h1>Edit Post</h1>
-<hr/>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <table>
-        {{ form }}
-    </table>
-    <button type="submit">등록</button>
-</form>
+    <!-- 게시글 생성/수정 페이지 컨테이너 -->
+    <div class="container">
+        <div class="main-title main-title-font">어떤 물건을 습득하셨나요?<br>습득한 분실물에 대해 알려주세요!</div>
+        <div class="form-container">
+            <form class="form" method="post" enctype="multipart/form-data" onsubmit="return checkSelection()">
+                {% csrf_token %}
+                <div class="form-content-info">
+                    <div class="form-title-container">
+                        <div class="form-label">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</div>
+                        <div class="form-title-input">{{ form.title }}</div>
+                    </div>
+                    <div class="form-category-container">
+                        <div class="form-label">카테고리</div>
+                        <div class="form-category-select">
+                            {% for value, label in form.fields.category.choices %}
+                            {% if forloop.first %}
+                            {% else %}
+                            {% if value == form.category.value %}
+                            <div class="form-category-select-element">
+                                <input type="radio" id="category_{{ forloop.counter }}" name="category"
+                                    value="{{ value }}" checked>
+                                <label for="category_{{ forloop.counter }}">{{ label }}</label>
+                            </div>
+                            {% else %}
+                            <div class="form-category-select-element">
+                                <input type="radio" id="category_{{ forloop.counter }}" name="category"
+                                    value="{{ value }}">
+                                <label for="category_{{ forloop.counter }}">{{ label }}</label>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-content">
+                    <div class="form-image-container">
+                        <div class="form-image-file">
+                            {% if form.head_image.value %}
+                            {{ form.head_image }}
+                            {% else %}
+                            <img src="/static/message/image/image.png" width="90px" height="90px" alt="이미지"
+                                id="previewImage">
+                            {{ form.head_image }}
+                            <div class="form-image-text" id="imageText">
+                                사진을 첨부해주세요!
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-content-container">
+                        <div class="form-content-input">{{ form.content }}</div>
+                    </div>
+                    <div class="submit-button">
+                        <button type="submit">등록</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        // 카테고리 필수 선택 알람
+        function checkSelection() {
+            const radio = document.querySelectorAll('input[type="radio"]:checked');
+            if (radio.length === 0) {
+                alert('카테고리는 필수 선택 항목입니다. 옵션을 선택하세요.');
+                return false;
+            }
+            return true;
+        }
+
+        // 이미지를 클릭하면 파일 선택 창이 열리도록 처리
+        const image = document.getElementById('previewImage');
+        const fileInput = document.getElementById('id_head_image');
+        const imageText = document.querySelector('.form-image-text');
+
+        fileInput.addEventListener('change', function (event) {
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                imageText.style.display = 'none'; // 이미지 선택 시 텍스트 숨기기
+                fileInput.style.display = 'none'; // 이미지 선택 시 파일 첨부 버튼 숨기기
+
+                reader.onload = function (e) {
+                    image.src = e.target.result;
+                    image.style.width = '500px'; // 이미지 크기 변경
+                    image.style.height = '200px';
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // textarea에 placeholder 추가
+        const contentTextarea = document.getElementById('id_content');
+        contentTextarea.setAttribute('placeholder', '글을 작성해주세요 . . .');
+    </script>
 </body>
+
 </html>
