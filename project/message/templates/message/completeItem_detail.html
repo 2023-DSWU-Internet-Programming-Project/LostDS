@@ -26,27 +26,32 @@
         <div class="content-container">
             <!-- 게시글 속성(제목, 카테고리 등) 컨텐츠 -->
             <div class="title-content">
-                <div class="title-font">
-                    {{ complete.title }}
-                </div>
-                <div class="sub-font">
-                    작성자 | {{ complete.author }}<br />
-                    작성일 | {{ complete.created_at }}<br /><br />
-                    {% if complete.category %}
-                    <span style="color: gray;"># {{ complete.category }}</span>
-                    {% else %}
-                    <span style="color: gray;"># 기타</span>
-                    {% endif %}
+                <div class="content-title">
+                    <div class="title-font">
+                        {{ complete.title }}
+                    </div>
+                    <div class="sub-font">
+                        작성자 | {{ complete.author }}<br />
+                        작성일 | {{ complete.created_at }}<br /><br />
+                        {% if complete.category %}
+                        <span style="color: gray;"># {{ complete.category }}</span>
+                        {% else %}
+                        <span style="color: gray;"># 기타</span>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
 
             <!-- 게시글 내용 컨텐츠 -->
             <div class="content-content">
                 {% if complete.head_image %}
-                <img src="{{ complete.head_image.url }}" width="920px" style="border-radius: 20px;"
-                    alt="{{ complete }} head image">
+                <div class="content-content-img">
+                    <img class="content-image" src="{{ complete.head_image.url }}" alt="{{ complete }} head image">
+                </div>
                 {% endif %}
-                <p class="content-font">{{ complete.content | linebreaks }}</p>
+                <div class="content-content-text">
+                    <p class="content-font">{{ complete.content | linebreaks }}</p>
+                </div>
             </div>
         </div>
 

@@ -6,39 +6,12 @@
     <meta charset="UTF-8">
     <title>LostDS</title>
     <link rel="stylesheet" href="{% static 'message/css/base_form.css' %}" media="screen">
-
-    <script>
-        // 카테고리 필수 선택 알람
-        function checkSelection() {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-            if (checkboxes.length === 0) {
-                alert('카테고리는 필수 선택 항목입니다. 옵션을 선택하세요.');
-                return false;
-            }
-            return true;
-        }
-
-        // 이미지 파일 첨부 시 이미지 미리보기
-        function previewImage(input) {
-            var preview = document.getElementById('imagePreview');
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 </head>
 
 <body>
     <!-- 게시글 생성/수정 페이지 컨테이너 -->
     <div class="container">
-        <div class="main-title main-title-font">물건을 습득하셨나요?<br>습득하신 분실물을 올려주세요!</div>
+        <div class="main-title main-title-font">어떤 물건을 습득하셨나요?<br>습득한 분실물에 대해 알려주세요!</div>
         <div class="form-container">
             <form class="form" method="post" enctype="multipart/form-data" onsubmit="return checkSelection()">
                 {% csrf_token %}
@@ -65,7 +38,14 @@
                 </div>
                 <div class="form-content">
                     <div class="form-image-container">
-                        <div class="form-image-file">{{ form.head_image }}</div>
+                        <div class="form-image-file">
+                            <img src="/static/message/image/image.png" width="90px" height="90px" alt="이미지"
+                                id="previewImage">
+                            {{ form.head_image }}
+                        </div>
+                        <div class="form-image-text" id="imageText">
+                            사진을 첨부해주세요!
+                        </div>
                     </div>
                     <div class="form-content-container">
                         <div class="form-content-input">{{ form.content }}</div>
@@ -77,6 +57,43 @@
             </form>
         </div>
     </div>
+    <script>
+        // 카테고리 필수 선택 알람
+        function checkSelection() {
+            const radio = document.querySelectorAll('input[type="radio"]:checked');
+            if (radio.length === 0) {
+                alert('카테고리는 필수 선택 항목입니다. 옵션을 선택하세요.');
+                return false;
+            }
+            return true;
+        }
+
+        // 이미지를 클릭하면 파일 선택 창이 열리도록 처리
+        const image = document.getElementById('previewImage');
+        const fileInput = document.getElementById('id_head_image');
+        const imageText = document.querySelector('.form-image-text');
+
+        fileInput.addEventListener('change', function (event) {
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                imageText.style.display = 'none'; // 이미지 선택 시 텍스트 숨기기
+                fileInput.style.display = 'none'; // 이미지 선택 시 파일 첨부 버튼 숨기기
+
+                reader.onload = function (e) {
+                    image.src = e.target.result;
+                    image.style.width = '500px'; // 이미지 크기 변경
+                    image.style.height = '200px';
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // textarea에 placeholder 추가
+        const contentTextarea = document.getElementById('id_content');
+        contentTextarea.setAttribute('placeholder', '글을 작성해주세요 . . .');
+    </script>
 </body>
 
 </html>

@@ -88,6 +88,12 @@ body {
     padding: 20px;
 }
 
+.content-image {
+    width: 920px;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
 .content-content {
     background-color: #E5EFD5;
     border: 1px solid black;
@@ -192,13 +198,18 @@ body {
 
 
 /* 버튼 CSS */
+.function_button {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .content-revise-delete-button {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    float: right;
-    margin-right: 30px;
-    font-size: large;
+    font-size: medium;
     font-weight: 500;
+    margin: 5px 30px 0px 0px;
 }
 
 .content-confirm-button {
