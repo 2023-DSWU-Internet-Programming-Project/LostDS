@@ -44,7 +44,16 @@ body {
     background: #E5EFD5;
 }
 
-.usr-info {
+.user-content {
+    display: flex; /* Flexbox를 사용하여 자식 요소를 가로로 배치 */
+    align-items: center; /* 세로 정렬을 중앙으로 설정 */
+}
+
+.user-content img {
+    margin-right: 20px; /* 이미지와 텍스트 사이의 간격 조절 */
+}
+
+.user-info {
 
 }
 
@@ -73,7 +82,7 @@ body {
 }
 
 .content {
-    /* width: 53%;*/
+    width: parent;
     height: 80px;
     padding: 5px;
     justify-content: center; /* 중앙 정렬 */

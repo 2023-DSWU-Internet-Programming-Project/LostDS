@@ -19,8 +19,8 @@
         <div class="user-content">      <!-- 여기에 사진과 회원 정보(아이디, 환영문구, 이메일) 써줌-->
             <img src="/static/mypage/image/profile.png" width="150" height="150">
             <div class="user-info">
-<!--                <h3>{{ request.CustomUser.username }}님, 환영합니다!</h3>-->
-<!--                <h4>ID : {{ author }}<br>E-mail : {{ email }}</h4>-->
+                <h2>< {{ username }} >님, 환영합니다!</h2>
+                <h3>ID : {{ username }}<br>E-mail : {{ email }}</h3>
             </div>
         </div>
     </div>
@@ -28,17 +28,41 @@
     <!-- 게시글 -->
     <h3 style="margin-left:-47%"><a href="/mypage/my-post">내가 쓴 게시글</a></h3>
     <div class="post-container">
+        {% for post in request.user.askitem_set.all %}
         <div class="content">      <!-- 여기에 일부의 게시글 보여지도록 (회색칸) -->
-
+            <ul>
+                <li>제목: {{ post.title }}<br>
+                    내용: {{ post.content|slice:"10" }}
+                </li>
+                
+            </ul>
         </div>
+        {% endfor %}
+
+        {% for post in request.user.finditem_set.all %}
+        <div class="content">
+            <ul>
+                <li>제목: {{ post.title }}<br>
+                    내용: {{ post.content|slice:"10" }}
+                </li>
+            </ul>
+        </div>
+        {% endfor %}
     </div>
 
     <!-- 댓글 -->
     <h3 style="margin-left:-47%"><a href="/mypage/comment">내가 쓴 댓글</a></h3>
     <div class="comment-container">
-        <div class="content">   <!-- 여기에 일부의 댓글 보여지도록 (회색칸) -->
-
+        {% for comment in request.user.comment_set.all %}
+        <div class="content">   <!-- 여기에 일부의 댓글 3개정도 보여지도록 -->
+            <ul>
+                <li>
+                    {{ comment.author }}<br>
+                    {{ comment.content }}
+                </li>
+        </ul>
         </div>
+        {% endfor %}
     </div>
 
 </div>
