@@ -16,10 +16,11 @@
 body {
     font-family: 'EASTARJET-Medium';
     background-image: url(/static/message/image/list.jpg);
-    background-position: left -50px bottom -45px;
-    background-size: 630px 450px;
+    background-position: left -50px bottom -40px;
+    background-size: 560px 400px;
     background-attachment: fixed;
     background-repeat: no-repeat;
+    caret-color: transparent;
 }
 
 .container {
@@ -32,24 +33,18 @@ body {
 .main-title {}
 
 /* a 태그 폰트 색상 및 밑줄 설정 */
-.detail-link {
+.detail-link,
+.detail-link:link,
+.detail-link:visited,
+.detail-link:hover,
+.detail-link:active,
+.detail-link-new-post {
+    color: black;
     text-decoration-line: none;
 }
 
-.detail-link:link {
-    color: black;
-}
-
-.detail-link:visited {
-    color: black;
-}
-
-.detail-link:hover {
-    color: black;
-}
-
-.detail-link:active {
-    color: black;
+.detail-link-new-post:hover {
+    text-decoration-line: underline;
 }
 
 
@@ -64,24 +59,17 @@ body {
 }
 
 .category-content {
-    /* 너비를 100%로 유지 */
     width: 80px;
     height: 80px;
     padding: 10px;
     margin: 5px auto;
     border-radius: 10px;
-    background: #E8E6D5;
-    box-shadow: 5px 5px #FAF2D2;
-}
-
-.category-font {
-    margin-top: 10px;
-    font-size: lg;
-    font-weight: 700;
+    background: #E5EFD5;
+    box-shadow: 3px 3px #737F61;
 }
 
 .category-content:hover {
-    background: #FFEB9E;
+    background: #B3CC8C;
 }
 
 .icon-text-wrapper {
@@ -91,6 +79,12 @@ body {
     flex-direction: column;
     /* 요소들을 수직(세로) 가운데 정렬 */
     align-items: center;
+}
+
+.category-tag {
+    margin-top: 20px;
+    font-size: x-large;
+    font-weight: 700;
 }
 
 
@@ -103,16 +97,17 @@ body {
     /* 3개의 그리드 아이템을 350px 너비로 반복해서 출력 */
     grid-template-columns: repeat(3, 1fr);
     /* 가운데 정렬 */
-    margin: 0 auto;
+    margin: 20px auto;
 }
 
 .post-content {
-    background: #D9D9D9;
+    background: white;
     /* 컨텐츠의 최대 너비 */
     max-width: 100%;
     padding: 15px;
     margin: 10px;
     margin-bottom: 50px;
+    border: 1px solid black;
     border-radius: 10px;
 }
 
@@ -120,12 +115,17 @@ body {
     position: relative;
     right: 10px;
     bottom: 10px;
-    box-shadow: 5px 5px #4d4d4d;
+    box-shadow: 3px 3px #4d4d4d;
+}
+
+.post-image {
+    border: 1px solid black;
+    border-radius: 10px;
 }
 
 .post-text-box {
     background: #FFFFFF;
-    padding: 20px;
+    padding: 10px 10px 0px 10px;
     border-radius: 0 0 10px 10px;
 }
 
@@ -137,6 +137,17 @@ body {
 .main-title-font {
     font-size: xx-large;
     font-weight: 900;
+}
+
+.category-font {
+    margin-top: 10px;
+    font-size: lg;
+    font-weight: 700;
+}
+
+.post-title-font {
+    font-size: lg;
+    font-weight: 500;
 }
 
 
@@ -151,5 +162,8 @@ body {
 
 .post-list-move-button,
 .post-create-button {
-    margin: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px 30px 5px 0px;
 }

@@ -16,7 +16,12 @@
         <div class="post-button">
             <div class="post-create-button">
                 {% if user.is_authenticated %}
-                <a href="/message/ask/create_post/">글 쓰기</a>
+                <a class="detail-link-new-post" href="/message/ask/create_post/">
+                    <div class="post-create-button">
+                        <img src="/static/message/image/new_post_icon.png" width="40" height="40">
+                        글 쓰기
+                    </div>
+                </a>
                 {% endif %}
             </div>
         </div>
@@ -43,8 +48,10 @@
             {% endfor %}
         </div>
         <br />
-        <div>
-            {%if category %}<span style="font-size: x-large; font-weight: 700;"># {{ category }}</span>{% endif %}
+        <div class="category-tag">
+            {%if category %}
+            # {{ category }}
+            {% endif %}
         </div>
 
         <!-- 게시글 -->
@@ -53,23 +60,15 @@
             <a class="detail-link" href="{{ item.get_absolute_url }}">
                 <div class="post-content">
                     {% if item.head_image %}
-                    <img src="{{ item.head_image.url }}" style="border-radius: 10px 10px 0 0;" width="330px"
-                        height="200px" alt="{{ item }} head image">
+                    <img class="post-image" src="{{ item.head_image.url }}" width="330px" height="170px"
+                        alt="{{ item }} head image">
                     {% else %}
-                    <img src="https://picsum.photos/seed/{{ item.id }}/330/200" style="border-radius: 10px 10px 0 0;"
-                        alt="random_image">
+                    <img class="post-image" src="https://picsum.photos/seed/{{ item.id }}/330/170" alt="random_image">
                     {% endif %}
                     <div class="post-text-box">
-                        <h2>{{ item.title }}</h2>
-                        <h4>작성자 :: {{ item.author }}</h4>
-                        <h5>{{ item.created_at }}</h5>
-                        {% if item.category %}
-                        <span style="color: gray;"># {{ item.category }}</span>
-                        {% else %}
-                        <span style="color: gray;"># 기타</span>
-                        {% endif %}
-                        <hr />
-                        <p>{{ item.content | truncatechars:20 }}</p>
+                        <div class="post-title-font">
+                            {{ item.title | truncatechars:20 }}
+                        </div>
                     </div>
                 </div>
             </a>
