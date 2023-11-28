@@ -6,16 +6,17 @@
     <meta charset="UTF-8">
     <title>LostDS</title>
     <link rel="stylesheet" href="{% static 'message/css/base_form.css' %}" media="screen">
-
-    <script>
-
-    </script>
 </head>
 
 <body>
     <!-- 게시글 생성/수정 페이지 컨테이너 -->
     <div class="container">
-        <div class="main-title main-title-font">어떤 물건을 습득하셨나요?<br>습득한 분실물에 대해 알려주세요!</div>
+        <div class="main-title">
+            <img class="main-title-image" src="/static/message/image/new_post_icon.png">
+            <div class="main-title-font">
+                어떤 물건을 습득하셨나요?<br>습득한 분실물에 대해 알려주세요!
+            </div>
+        </div>
         <div class="form-container">
             <form class="form" method="post" enctype="multipart/form-data" onsubmit="return checkSelection()">
                 {% csrf_token %}
@@ -23,6 +24,8 @@
                     <div class="form-title-container">
                         <div class="form-label">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</div>
                         <div class="form-title-input">{{ form.title }}</div>
+                        <div class="form-label">습득 장소</div>
+                        <div class="form-place-input">{{ form.place }}</div>
                     </div>
                     <div class="form-category-container">
                         <div class="form-label">카테고리</div>

@@ -14,7 +14,7 @@
         <div class="main-title main-title-font">
             물건을 습득하셨나요?<br>습득하신 분실물을 올려주세요!
         </div>
-        
+
         <!-- 게시글 생성 버튼 및 '완료'페이지 이동 버튼 -->
         <div class="post-button">
             <a class="detail-link-new-post" href="../complete_post/">
@@ -25,6 +25,13 @@
             </a>
             {% if user.is_authenticated %}
             <a class="detail-link-new-post" href="/message/find/create_post/">
+                <div class="post-create-button">
+                    <img src="/static/message/image/new_post_icon.png" width="40" height="40">
+                    글 쓰기
+                </div>
+            </a>
+            {% else %}
+            <a class="detail-link-new-post" href="/login/">
                 <div class="post-create-button">
                     <img src="/static/message/image/new_post_icon.png" width="40" height="40">
                     글 쓰기
