@@ -10,13 +10,13 @@
 
 <body>
     <div class="container">
-        <h1>Delete Post</h1>
-        <hr />
         <form method="post" class="delete-form">
             {% csrf_token %}
             <p>정말로 해당 글을 삭제하시나요?</p>
-            <input type="submit" value="Delete">
-            <a href="/message/find/{{ find.pk }}/">취소</a>
+            <div class="button-group">
+                <button type="submit">삭제</button>
+                <button type="button" onclick="location.href='/message/find/{{ find.pk }}/'">취소</button>
+            </div>
         </form>
     </div>
 </body>

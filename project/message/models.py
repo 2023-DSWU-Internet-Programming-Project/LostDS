@@ -1,27 +1,8 @@
 from django.db import models
-# from django.contrib.auth.models import User
-from message.models import FindItem, AskItem, CompleteItem, Comment
-#
+from django.contrib.auth.models import User
 from django.conf import settings
-#
-#
-# # Create your models here.
-# class UserProfile(models.Model):
-#     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-#     nickname = models.CharField(max_length=20, blank=True)
-#     profile_photo = models.ImageField(upload_to='mypage/profiles/', blank=True)
-#
-#     def __str__(self):
-#         return self.user.username
-#
-class UserPost(models.Model):       # message 앱의 FindItem, AskItem, CompleteItem 모델과 관련이 있음
-    # 사용자(user)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-    # 게시글 제목
-    title = models.CharField(max_length=30)
 
-    # 게시글에서 사용된 이미지
 class Category(models.Model):
     name = models.CharField(max_length=10, unique=True)
     slug = models.SlugField(max_length=100, unique=True, allow_unicode=True)
@@ -48,7 +29,10 @@ class FindItem(models.Model):
     title = models.CharField(max_length=30)
 
     # 작성자
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+
+    # 습득 장소
+    place = models.CharField(max_length=15, null=True)
 
     # 포스트 생성일
     created_at = models.DateTimeField(auto_now_add=True)
@@ -59,10 +43,9 @@ class FindItem(models.Model):
     # 사진 업로드
     head_image = models.ImageField(upload_to='message/images/find/%Y/%m/%d/', blank=True)
 
-    # 게시글 내용
+    # 포스트 내용
     content = models.TextField()
 
-    # 게시글 생성일
     def __str__(self):
         return f'{self.title}'
 
@@ -75,7 +58,10 @@ class AskItem(models.Model):
     title = models.CharField(max_length=30)
 
     # 작성자
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+
+    # 분실 장소
+    place = models.CharField(max_length=15, blank=True, null=True)
 
     # 포스트 생성일
     created_at = models.DateTimeField(auto_now_add=True)
@@ -101,21 +87,43 @@ class CompleteItem(models.Model):
     title = models.CharField(max_length=30)
 
     # 작성자
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+
+    # 습득 장소
+    place = models.CharField(max_length=15, null=True)
 
     # 포스트 생성일
     created_at = models.DateTimeField()
 
-    def __str__(self):
-        return f'{self.user.username}::{self.title}'
+    # 포스트 카테고리
+    category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
 
-class UserComment(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    find_post = models.ForeignKey(FindItem, on_delete=models.CASCADE, null=True, blank=True)
-    ask_post = models.ForeignKey(AskItem, on_delete=models.CASCADE, null=True, blank=True)
-    complete_post = models.ForeignKey(CompleteItem, on_delete=models.CASCADE, null=True, blank=True)
+    # 사진 업로드
+    head_image = models.ImageField(upload_to='message/images/complete/%Y/%m/%d/', blank=True)
+
+    # 포스트 내용
+    content = models.TextField()
+
+    def __str__(self):
+        return f'{self.title}'
+
+    def get_absolute_url(self):
+        return f'/message/complete_post/{self.pk}/'
+
+
+class Comment(models.Model):
+    findPost = models.ForeignKey(FindItem, on_delete=models.CASCADE, null=True, blank=True)
+    askPost = models.ForeignKey(AskItem, on_delete=models.CASCADE, null=True, blank=True)
+    completePost = models.ForeignKey(CompleteItem, on_delete=models.CASCADE, null=True, blank=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.user.username}::{self.content}'
+        return f'{self.author}::{self.content}'
+
+    def get_absolute_url_find(self):
+        return f'{self.findPost.get_absolute_url()}#comment-{self.pk}'
+
+    def get_absolute_url_ask(self):
+        return f'{self.askPost.get_absolute_url()}#comment-{self.pk}'

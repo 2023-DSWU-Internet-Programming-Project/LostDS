@@ -35,7 +35,7 @@ class findDetail(DetailView):
 # 습득물 페이지 게시글 생성 뷰
 class FindPostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = FindItem
-    fields = ['title', 'category', 'head_image', 'content']
+    fields = ['title', 'place', 'category', 'head_image', 'content']
     template_name = 'message/findItem_form.html'
     context_object_name = 'find'
 
@@ -54,7 +54,7 @@ class FindPostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 # 습득물 페이지 게시글 수정 뷰
 class FindPostUpdate(LoginRequiredMixin, UpdateView):
     model = FindItem
-    fields = ['title', 'category', 'head_image', 'content']
+    fields = ['title', 'place', 'category', 'head_image', 'content']
     template_name = 'message/findItem_update_form.html'
     context_object_name = 'find'
 
@@ -109,7 +109,7 @@ class askDetail(DetailView):
 # 분실물 페이지 게시글 생성 뷰
 class AskPostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = AskItem
-    fields = ['title', 'category', 'head_image', 'content']
+    fields = ['title', 'place', 'category', 'head_image', 'content']
     template_name = 'message/askItem_form.html'
     context_object_name = 'ask'
 
@@ -128,7 +128,7 @@ class AskPostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 # 분실물 페이지 게시글 수정 뷰
 class AskPostUpdate(LoginRequiredMixin, UpdateView):
     model = AskItem
-    fields = ['title', 'category', 'head_image', 'content']
+    fields = ['title', 'place', 'category', 'head_image', 'content']
     template_name = 'message/askItem_update_form.html'
     context_object_name = 'ask'
 
@@ -201,6 +201,7 @@ def complete_post(request, pk):
     completed_post = completeList.model(
         title=post.title,
         author=post.author,
+        place=post.place,
         created_at=post.created_at,
         category=post.category,
         head_image=post.head_image,

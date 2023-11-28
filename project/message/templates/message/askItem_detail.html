@@ -12,50 +12,98 @@
     <!-- 디테일 페이지 컨테이너 -->
     <div class="container">
         <div class="main-title">
-            <div class="main-font">잃어버렸나요?</div>
-            <span class="content-revise-delete-button">
-                {% if user.is_authenticated %}
-                {% if user == ask.author or user.is_superuser or user.is_staff %}
-                <a class="detail-link" href="/message/ask/update_post/{{ ask.pk }}/">수정</a>
-                &nbsp;&nbsp;&nbsp;
-                <a class="detail-link" href="/message/ask/delete_post/{{ ask.pk }}/">삭제</a>
-                {% endif %}
-                {% endif %}
-            </span>
+            <img class="main-title-image" src="/static/message/image/new_post_icon.png">
+            <div class="main-title-font">
+                잃어버렸나요?
+            </div>
+        </div>
+
+        <!-- 게시글 수정 및 삭제 버튼 -->
+        <div class="function_button">
+            {% if user.is_authenticated %}
+            {% if user == ask.author or user.is_superuser or user.is_staff %}
+            <a class="detail-link" href="/message/ask/update_post/{{ ask.pk }}/">
+                <div class="content-revise-delete-button">
+                    <img src="/static/message/image/editing_icon.png" width="30" height="30">
+                    수정
+                </div>
+            </a>
+            <a class="detail-link" href="/message/ask/delete_post/{{ ask.pk }}/">
+                <div class="content-revise-delete-button">
+                    <img src="/static/message/image/delete_icon.png" width="30" height="30">
+                    삭제
+                </div>
+            </a>
+            {% endif %}
+            {% endif %}
+        </div>
+        <div class="created_at create_at-font">
+            글 작성 시간: {{ ask.created_at }}
         </div>
 
         <!-- 게시글 컨테이너 -->
         <div class="content-container">
             <!-- 게시글 속성(제목, 카테고리 등) 컨텐츠 -->
-            <div class="title-content">
-                <div class="title-font">
-                    {{ ask.title }}
+            <div class="content-title-container">
+                <div class="content-title-content">
+                    <div class="content-title">
+                        <div class="content-label-font">
+                            제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목
+                        </div>
+                        <div class="content-large-box">
+                            {{ ask.title }}
+                        </div>
+                    </div>
+                    <div class="content-place">
+                        <div class="content-label-font">
+                            습득장소
+                        </div>
+                        <div class="content-small-box">
+                            {{ ask.place }}
+                        </div>
+                    </div>
                 </div>
-                <div class="sub-font">
-                    작성자 | {{ ask.author }}<br />
-                    작성일 | {{ ask.created_at }}<br /><br />
-                    {% if ask.category %}
-                    <span style="color: gray;"># {{ ask.category }}</span>
-                    {% else %}
-                    <span style="color: gray;"># 기타</span>
-                    {% endif %}
+                <div class="content-title-content">
+                    <div class="content-author">
+                        <div class="content-label-font">
+                            작&nbsp;&nbsp;성&nbsp;&nbsp;자
+                        </div>
+                        <div class="content-large-box">
+                            {{ ask.author }}
+                        </div>
+                    </div>
+                    <div class="content-category">
+                        <div class="content-label-font">
+                            카테고리
+                        </div>
+                        <div class="content-small-box">
+                            {{ ask.category }}
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- 게시글 내용 컨텐츠 -->
             <div class="content-content">
                 {% if ask.head_image %}
-                <img src="{{ ask.head_image.url }}" width="920px" style="border-radius: 20px;"
-                    alt="{{ ask }} head image">
+                <div class="content-img-container">
+                    <img class="content-image" src="{{ ask.head_image.url }}" alt="{{ ask }} head image">
+                </div>
                 {% endif %}
-                <p class="content-font">{{ ask.content | linebreaks }}</p>
+                <div class="content-content-text">
+                    <p class="content-font">{{ ask.content | linebreaks }}</p>
+                </div>
             </div>
         </div>
 
         <!-- 댓글 컨테이너 -->
-        <div class="comment-title-font comment-title">
-            댓글
+        <div class="comment-title">
+            <div class="comment-title-font">
+                댓글
+            </div>
+            <img class="comment-title-image" src="/static/message/image/comment_icon.png">
         </div>
+
         <div class="comment-container">
             {% if user.is_authenticated %}
             <!-- 댓글 입력 폼 -->
@@ -76,7 +124,7 @@
             <div class="comment-content" id="comment-{{ comment.pk }}">
 
                 <!-- 댓글 단 유저 정보 -->
-                <img class="comment-profile-img" src="http://placehold.it/40x40" alt="">
+                <img class="comment-profile-img" src="/static/message/image/user.png" alt="">
                 <div class="comment-info-font">
                     {{ comment.author.username }}<br />
                     <small style="color: gray;">{{ comment.created_at }}</small>

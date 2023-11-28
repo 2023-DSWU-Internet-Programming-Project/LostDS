@@ -1,31 +1,77 @@
 @font-face {
-    font-family: 'MaruBuri';
-    font-weight: 700;
+    font-family: 'PuradakGentleGothicR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.1/PuradakGentleGothicR.woff2') format('woff2');
+    font-weight: normal;
     font-style: normal;
-    src: url(https://cdn.jsdelivr.net/gh/webfontworld/naver/MaruBuri-Bold.woff2) format('woff2');
-    font-display: swap;
 }
 
 @font-face {
     font-family: 'EASTARJET-Medium';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/EASTARJET-Medium.woff2') format('woff2');
-    font-weight: 500;
+    font-weight: 700;
     font-style: normal;
 }
 
 
-
-
-
 body {
     font-family: 'EASTARJET-Medium';
+    background-color: #FAF2D2;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
 }
 
 .container {
-    width: 960px;
+    position: relative;
+    background-color: white;
+    padding: 50px 150px;
+    border-radius: 25px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+}
+
+/* 폼 */
+.container input {
+    display: block;
+    margin: 0 auto;
+    width: 300px;
+}
+
+/* 버튼 */
+.button-group {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    margin: 70px auto 0px auto;
+}
+
+.button-group button {
+    margin-right: 10px;
+}
+
+[type=submit] {
+    font-family: 'EASTARJET-Medium';
+    background-color: #FFEB9E; 
+    color: rgb(0, 0, 0); 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 50px; 
+    cursor: pointer; 
+}
+
+[type=button] {
+    font-family: 'EASTARJET-Medium';
+    background-color: #E8E6D5; 
+    color: rgb(0, 0, 0); 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 50px; 
+    cursor: pointer; 
 }

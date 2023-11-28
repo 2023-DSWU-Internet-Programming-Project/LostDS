@@ -30,7 +30,8 @@ font-family: 'EASTARJET-Medium';
     background-color: #FAF2D2;
     }
 
-a {
+.main,
+.item {
     text-decoration: none;
     color: #000000;
     transition: .2s;

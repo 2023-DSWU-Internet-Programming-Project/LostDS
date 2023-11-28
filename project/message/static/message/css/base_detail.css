@@ -1,12 +1,4 @@
 @font-face {
-    font-family: 'MaruBuri';
-    font-weight: 700;
-    font-style: normal;
-    src: url(https://cdn.jsdelivr.net/gh/webfontworld/naver/MaruBuri-Bold.woff2) format('woff2');
-    font-display: swap;
-}
-
-@font-face {
     font-family: 'EASTARJET-Medium';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/EASTARJET-Medium.woff2') format('woff2');
     font-weight: 500;
@@ -27,16 +19,26 @@ body {
 }
 
 .container {
-    /* 컨텐츠의 최대 넓이 */
     width: 960px;
     display: grid;
-    margin: 70px auto;
+    margin: 70px auto 0px auto;
 }
 
 .main-title {
     display: flex;
-    justify-content: space-between;
-    align-items: end;
+    align-items: center;
+}
+
+.main-title-image {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.created_at {
+    display: flex;
+    justify-content: flex-end;
+    margin: 5px 25px 0 0;
 }
 
 /* a 태그 폰트 색상 및 밑줄 설정 */
@@ -67,43 +69,80 @@ body {
 
 /* 게시글 CSS */
 .content-container {
-    /* 컨텐츠의 최대 너비 */
     max-width: 100%;
     margin: 10px 0;
-    /* box-shadow: 5px 5px 5px #D9D9D9, -1px -1px 2px #D9D9D9; */
 }
 
-.title-content {
+.content-title-container {
+    display: flex;
+    flex-direction: column;
     background-color: #E5EFD5;
     border: 1px solid black;
     border-radius: 20px;
     padding: 20px;
     margin-bottom: 20px;
+    gap: 10px;
 }
 
-.content-title {
+.content-title-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.content-title,
+.content-author {
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.content-place,
+.content-category {
+    display: flex;
+    align-items: center;
+}
+
+.content-large-box {
     background-color: white;
     border: 1px solid black;
-    border-radius: 20px;
-    padding: 20px;
+    width: 350px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border-radius: 10px;
 }
 
-.content-image {
-    width: 920px;
-    border-radius: 20px;
+.content-small-box {
+    background-color: white;
     border: 1px solid black;
+    width: 250px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border-radius: 10px;
 }
 
 .content-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     background-color: #E5EFD5;
     border: 1px solid black;
     border-radius: 20px;
     padding: 20px;
 }
 
-.content-content-img {
+.content-img-container {
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(to bottom, #E5EFD5, #ffffff);
+    border: 1px solid black;
     border-radius: 20px;
-    margin-bottom: 20px;
+}
+
+.content-image {
+    width: 520px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
 }
 
 .content-content-text {
@@ -118,19 +157,27 @@ body {
 
 
 /* 댓글 CSS */
+.comment-title {
+    display: flex;
+    align-items: center;
+    margin: 10px 20px;
+}
+
+.comment-title-image {
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
+}
+
 .comment-container {
     /* 컨텐츠의 최대 너비 */
     max-width: 100%;
     margin-bottom: 20px 0 70px 0;
-    background-color: white;
-    border: 5px solid #E5EFD5;
+    background: linear-gradient(to bottom, #E5EFD5, #ffffff);
+    border: 1px solid black;
     /* box-shadow: 5px 5px 5px #D9D9D9, -1px -1px 2px #D9D9D9; */
     border-radius: 20px;
     padding: 20px;
-}
-
-.comment-title {
-    margin: 10px 20px;
 }
 
 .comment-content {
@@ -143,9 +190,12 @@ body {
 }
 
 .comment-profile-img {
-    border-radius: 10px;
+    background-color: white;
+    border: 1px solid black;
     float: left;
     margin-right: 10px;
+    width: 40px;
+    height: 40px;
 }
 
 .comment-text {
@@ -157,9 +207,14 @@ body {
 
 
 /* 폰트 CSS */
-.main-font {
+.main-title-font {
     font-size: xx-large;
     font-weight: 900;
+}
+
+.create_at-font {
+    font-size: small;
+    color: gray;
 }
 
 .title-font {
@@ -193,6 +248,13 @@ body {
     font-weight: 300;
 }
 
+.content-label-font {
+    font-size: medium;
+    font-weight: 600;
+    width: 80px;
+    text-align: left;
+}
+
 
 
 
@@ -213,7 +275,7 @@ body {
 }
 
 .content-confirm-button {
-    float: right;
+    justify-content: flex-end;
 }
 
 .comment-form-button {

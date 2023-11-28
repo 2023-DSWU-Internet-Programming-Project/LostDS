@@ -1,17 +1,24 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <title>LostDS</title>
+    <link rel="stylesheet" href="{% static 'message/css/base_delete.css' %}" media="screen">
 </head>
+
 <body>
-<h1>Delete Post</h1>
-<hr/>
-<form method="post" class="delete-form">
-    {% csrf_token %}
-    <p>정말로 해당 글을 삭제하시나요?</p>
-    <input type="submit" value="Delete">
-    <a href="/message/ask/{{ ask.pk }}/">취소</a>
-</form>
+    <div class="container">
+        <form method="post" class="delete-form">
+            {% csrf_token %}
+            <p>정말로 해당 글을 삭제하시나요?</p>
+            <div class="button-group">
+                <button type="submit">삭제</button>
+                <button type="button" onclick="location.href='/message/ask/{{ ask.pk }}/'">취소</button>
+            </div>
+        </form>
+    </div>
 </body>
+
 </html>
