@@ -15,7 +15,6 @@ class findList(ListView):
     def get_context_data(self, **kwargs):
         context = super(findList, self).get_context_data()
         context['categories'] = Category.objects.all()
-        context['comment_form'] = CommentForm()
         return context
 
 
