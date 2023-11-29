@@ -1,4 +1,12 @@
 @font-face {
+    font-family: 'PuradakGentleGothicR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.1/PuradakGentleGothicR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    text-shadow: 100px;
+}
+
+@font-face {
     font-family: 'EASTARJET-Medium';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/EASTARJET-Medium.woff2') format('woff2');
     font-weight: 500;
@@ -21,7 +29,7 @@ body {
 .container {
     width: 960px;
     display: grid;
-    margin: 70px auto 0px auto;
+    margin: 136px auto 70px auto;
 }
 
 .main-title {
@@ -67,6 +75,40 @@ body {
 
 
 
+/* 네비게이션 바 CSS */
+.main {
+    font-family: 'PuradakGentleGothicR';
+    font-size: 30;
+    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.221));
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 66px;
+    border-radius: 0px 0px 20px 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #FAF2D2;
+}
+
+.main,
+.item {
+    text-decoration: none;
+    color: #000000;
+    transition: .2s;
+}
+
+.item:hover {
+    color: rgb(255, 196, 0);
+}
+
+
+
+
+
 /* 게시글 CSS */
 .content-container {
     max-width: 100%;
@@ -91,13 +133,13 @@ body {
 }
 
 .content-title,
-.content-author {
+.content-place {
     display: flex;
     align-items: center;
-    margin-right: 50px;
+    margin-right: 45px;
 }
 
-.content-place,
+.content-author,
 .content-category {
     display: flex;
     align-items: center;
@@ -106,7 +148,7 @@ body {
 .content-large-box {
     background-color: white;
     border: 1px solid black;
-    width: 350px;
+    width: 400px;
     box-sizing: border-box;
     padding: 5px 10px;
     border-radius: 10px;
@@ -115,7 +157,7 @@ body {
 .content-small-box {
     background-color: white;
     border: 1px solid black;
-    width: 250px;
+    width: 300px;
     box-sizing: border-box;
     padding: 5px 10px;
     border-radius: 10px;
@@ -240,7 +282,7 @@ body {
 
 .comment-info-font {
     font-size: medium;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .comment-content-font {
@@ -274,19 +316,34 @@ body {
     margin: 5px 30px 0px 0px;
 }
 
-.content-confirm-button {
-    justify-content: flex-end;
+button.detail-link {
+    font-family: 'EASTARJET-Medium';
+    font-size: medium;
+    font-weight: 500;
+    border: None;
+    background-color: transparent;
 }
 
 .comment-form-button {
+    font-family: 'EASTARJET-Medium';
     width: 70px;
     height: 105.6px;
     margin-left: 5px;
-    border: none;
+    border: 1px solid gray;
     border-radius: 10px;
+    padding: 5px 10px;
 }
 
 .comment-delete-button {
+    font-family: 'EASTARJET-Medium';
     display: inline;
     float: right;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+.comment-delete-button:hover,
+.comment-form-button:hover {
+    box-shadow: inset 2px 2px gray;
 }

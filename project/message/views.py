@@ -10,6 +10,7 @@ from django.core.exceptions import PermissionDenied
 class findList(ListView):
     model = FindItem
     ordering = '-pk'
+    paginate_by = 9
     template_name = 'message/findItem_list.html'
 
     def get_context_data(self, **kwargs):
@@ -84,6 +85,7 @@ class FindPostDelete(LoginRequiredMixin, DeleteView):
 class askList(ListView):
     model = AskItem
     ordering = '-pk'
+    paginate_by = 9
     template_name = 'message/askItem_list.html'
 
     def get_context_data(self, **kwargs):
@@ -158,6 +160,7 @@ class AskPostDelete(LoginRequiredMixin, DeleteView):
 class completeList(ListView):
     model = CompleteItem
     ordering = '-pk'
+    paginate_by = 9
     template_name = 'message/completeItem_list.html'
 
     def get_context_data(self, **kwargs):

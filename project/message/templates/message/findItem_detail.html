@@ -9,156 +9,172 @@
 </head>
 
 <body>
-    <!-- 디테일 페이지 컨테이너 -->
-    <div class="container">
-        <div class="main-title">
-            <img class="main-title-image" src="/static/message/image/new_post_icon.png">
-            <div class="main-title-font">
-                주인을 찾아요!
-            </div>
-        </div>
+    <div style="display: flex; flex-direction: column;">
+        <navigation class="nav">
+            <a href='/' class='main'>LostDS</a>
+            <a href="/message/ask/" class='item'>잃어버렸나요?</a>
+            <a href="/message/find/" class='item'>주인을 찾아요!</a>
+            <a href='https://map.naver.com/p/search/%EB%8D%95%EC%84%B1%EC%97%AC%EC%9E%90%EB%8C%80%ED%95%99%EA%B5%90?c=15.00,0,0,0,dh'
+                class='item'>지도</a>
+            <a href="{% url 'mypage' %}" class='item'>마이페이지</a>
 
-        <!-- 게시글 수정 및 삭제 버튼 -->
-        <div class="function_button">
             {% if user.is_authenticated %}
-            {% if user == find.author or user.is_superuser or user.is_staff %}
-            <a class="detail-link" href="/message/find/update_post/{{ find.pk }}/">
-                <div class="content-revise-delete-button">
-                    <img src="/static/message/image/editing_icon.png" width="30" height="30">
-                    수정
-                </div>
-            </a>
-            <a class="detail-link" href="/message/find/delete_post/{{ find.pk }}/">
-                <div class="content-revise-delete-button">
-                    <img src="/static/message/image/delete_icon.png" width="30" height="30">
-                    삭제
-                </div>
-            </a>
-            {% endif %}
-            {% endif %}
-        </div>
-        <div class="created_at create_at-font">
-            글 작성 시간: {{ find.created_at }}
-        </div>
-
-        <!-- 게시글 컨테이너 -->
-        <div class="content-container">
-            <!-- 게시글 속성(제목, 카테고리 등) 컨텐츠 -->
-            <div class="content-title-container">
-                <div class="content-title-content">
-                    <div class="content-title">
-                        <div class="content-label-font">
-                            제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목
-                        </div>
-                        <div class="content-large-box">
-                            {{ find.title }}
-                        </div>
-                    </div>
-                    <div class="content-place">
-                        <div class="content-label-font">
-                            습득장소
-                        </div>
-                        <div class="content-small-box">
-                            {{ find.place }}
-                        </div>
-                    </div>
-                </div>
-                <div class="content-title-content">
-                    <div class="content-author">
-                        <div class="content-label-font">
-                            작&nbsp;&nbsp;성&nbsp;&nbsp;자
-                        </div>
-                        <div class="content-large-box">
-                            {{ find.author }}
-                        </div>
-                    </div>
-                    <div class="content-category">
-                        <div class="content-label-font">
-                            카테고리
-                        </div>
-                        <div class="content-small-box">
-                            {{ find.category }}
-                        </div>
-                    </div>
-                    <span class="content-confirm-button">
-                        {% if user.is_authenticated %}
-                        {% if user == find.author or user.is_superuser or user.is_staff %}
-                        <form action="{% url 'complete_post' pk=find.id %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit">완료</button>
-                        </form>
-                        {% endif %}
-                        {% endif %}
-                    </span>
-                </div>
-            </div>
-
-            <!-- 게시글 내용 컨텐츠 -->
-            <div class="content-content">
-                {% if find.head_image %}
-                <div class="content-img-container">
-                    <img class="content-image" src="{{ find.head_image.url }}" alt="{{ find }} head image">
-                </div>
-                {% endif %}
-                <div class="content-content-text">
-                    <p class="content-font">{{ find.content | linebreaks }}</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 댓글 컨테이너 -->
-        <div class="comment-title">
-            <div class="comment-title-font">
-                댓글
-            </div>
-            <img class="comment-title-image" src="/static/message/image/comment_icon.png">
-        </div>
-
-        <div class="comment-container">
-            {% if user.is_authenticated %}
-            <!-- 댓글 입력 폼 -->
-            <form id="comment-form" method="POST" action="/message/find/{{ find.pk }}/new_comment/">
-                {% csrf_token %}
-                <div class="comment-form">
-                    {{ comment_form }}
-                    <button class="comment-form-button" type="submit">등록</button>
-                </div>
-            </form>
+            <a href="/login/logout/" class='item'>로그아웃</a>
             {% else %}
-            <a class="sub-font" role="button" href="/login/">로그인 후 이용 가능합니다.</a>
+            <a href="{% url 'user:login' %}" class='item'>로그인</a>
             {% endif %}
+        </navigation>
 
-            <!-- 댓글 컨텐츠 -->
-            {% if find.comment_set.exists %}
-            {% for comment in find.comment_set.iterator %}
-            <div class="comment-content" id="comment-{{ comment.pk }}">
-
-                <!-- 댓글 단 유저 정보 -->
-                <img class="comment-profile-img" src="/static/message/image/user.png" alt="">
-                <div class="comment-info-font">
-                    {{ comment.author.username }}<br />
-                    <small style="color: gray;">{{ comment.created_at }}</small>
-                    {% if user.is_authenticated %}
-                    {% if user == comment.author or user.is_superuser or user.is_staff %}
-                    <button class="comment-delete-button" type="button"
-                        onclick="location.href='/message/find/delete_comment/{{ comment.pk }}/'">삭제
-                    </button>
-                    {% endif %}
-                    {% endif %}
-                </div>
-
-                <!-- 댓글 내용 -->
-                <div class="comment-text">
-                    <p>
-                    <div class="comment-content-font">
-                        {{ comment.content | linebreaks }}
-                    </div>
-                    </p>
+        <!-- 디테일 페이지 컨테이너 -->
+        <div class="container">
+            <div class="main-title">
+                <img class="main-title-image" src="/static/message/image/new_post_icon.png">
+                <div class="main-title-font">
+                    주인을 찾아요!
                 </div>
             </div>
-            <hr />
-            {% endfor %}
-            {% endif %}
+
+            <!-- 완료 / 게시글 수정 및 삭제 버튼 -->
+            <div class="function_button">
+                {% if user.is_authenticated %}
+                {% if user == find.author or user.is_superuser or user.is_staff %}
+                <form action="{% url 'complete_post' pk=find.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="content-revise-delete-button">
+                        <img src="/static/message/image/complete.png" width="30" height="30">
+                        <button class="detail-link" type="submit">
+                            완료
+                        </button>
+                    </div>
+                </form>
+                <a class="detail-link" href="/message/find/update_post/{{ find.pk }}/">
+                    <div class="content-revise-delete-button">
+                        <img src="/static/message/image/editing_icon.png" width="30" height="30">
+                        수정
+                    </div>
+                </a>
+                <a class="detail-link" href="/message/find/delete_post/{{ find.pk }}/">
+                    <div class="content-revise-delete-button">
+                        <img src="/static/message/image/delete_icon.png" width="30" height="30">
+                        삭제
+                    </div>
+                </a>
+                {% endif %}
+                {% endif %}
+            </div>
+            <div class="created_at create_at-font">
+                글 작성 시간: {{ find.created_at }}
+            </div>
+
+            <!-- 게시글 컨테이너 -->
+            <div class="content-container">
+                <!-- 게시글 속성(제목, 카테고리 등) 컨텐츠 -->
+                <div class="content-title-container">
+                    <div class="content-title-content">
+                        <div class="content-title">
+                            <div class="content-label-font">
+                                제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목
+                            </div>
+                            <div class="content-large-box">
+                                {{ find.title }}
+                            </div>
+                        </div>
+                        <div class="content-author">
+                            <div class="content-label-font">
+                                작&nbsp;&nbsp;성&nbsp;&nbsp;자
+                            </div>
+                            <div class="content-small-box">
+                                {{ find.author }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-title-content">
+                        <div class="content-place">
+                            <div class="content-label-font">
+                                습득장소
+                            </div>
+                            <div class="content-large-box">
+                                {{ find.place }}
+                            </div>
+                        </div>
+                        <div class="content-category">
+                            <div class="content-label-font">
+                                카테고리
+                            </div>
+                            <div class="content-small-box">
+                                {{ find.category }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 게시글 내용 컨텐츠 -->
+                <div class="content-content">
+                    {% if find.head_image %}
+                    <div class="content-img-container">
+                        <img class="content-image" src="{{ find.head_image.url }}" alt="{{ find }} head image">
+                    </div>
+                    {% endif %}
+                    <div class="content-content-text">
+                        <p class="content-font">{{ find.content | linebreaks }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 댓글 컨테이너 -->
+            <div class="comment-title">
+                <div class="comment-title-font">
+                    댓글
+                </div>
+                <img class="comment-title-image" src="/static/message/image/comment_icon.png">
+            </div>
+
+            <div class="comment-container">
+                {% if user.is_authenticated %}
+                <!-- 댓글 입력 폼 -->
+                <form id="comment-form" method="POST" action="/message/find/{{ find.pk }}/new_comment/">
+                    {% csrf_token %}
+                    <div class="comment-form">
+                        {{ comment_form }}
+                        <button class="comment-form-button" type="submit">등록</button>
+                    </div>
+                </form>
+                {% else %}
+                <a class="sub-font" role="button" href="/login/">로그인 후 이용 가능합니다.</a>
+                {% endif %}
+
+                <!-- 댓글 컨텐츠 -->
+                {% if find.comment_set.exists %}
+                {% for comment in find.comment_set.iterator %}
+                <div class="comment-content" id="comment-{{ comment.pk }}">
+
+                    <!-- 댓글 단 유저 정보 -->
+                    <img class="comment-profile-img" src="/static/message/image/user.png" alt="">
+                    <div class="comment-info-font">
+                        {{ comment.author.username }}<br />
+                        <small style="color: gray;">{{ comment.created_at }}</small>
+                        {% if user.is_authenticated %}
+                        {% if user == comment.author or user.is_superuser or user.is_staff %}
+                        <button class="comment-delete-button" type="button"
+                            onclick="location.href='/message/find/delete_comment/{{ comment.pk }}/'">삭제
+                        </button>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+
+                    <!-- 댓글 내용 -->
+                    <div class="comment-text">
+                        <p>
+                        <div class="comment-content-font">
+                            {{ comment.content | linebreaks }}
+                        </div>
+                        </p>
+                    </div>
+                </div>
+                <hr />
+                {% endfor %}
+                {% endif %}
+            </div>
         </div>
     </div>
 </body>

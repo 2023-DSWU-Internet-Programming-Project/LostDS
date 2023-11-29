@@ -9,59 +9,76 @@
 </head>
 
 <body>
-    <!-- 게시글 생성/수정 페이지 컨테이너 -->
-    <div class="container">
-        <div class="main-title">
-            <img class="main-title-image" src="/static/message/image/new_post_icon.png">
-            <div class="main-title-font">
-                어떤 물건을 잃어버리셨나요?<br>잃어버린 물건에 대해 알려주세요!
-            </div>
-        </div>
-        <div class="form-container">
-            <form class="form" method="post" enctype="multipart/form-data" onsubmit="return checkSelection()">
-                {% csrf_token %}
-                <div class="form-content-info">
-                    <div class="form-title-container">
-                        <div class="form-label">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</div>
-                        <div class="form-title-input">{{ form.title }}</div>
-                        <div class="form-label">습득 장소</div>
-                        <div class="form-place-input">{{ form.place }}</div>
-                    </div>
-                    <div class="form-category-container">
-                        <div class="form-label">카테고리</div>
-                        <div class="form-category-select">
-                            {% for value, label in form.fields.category.choices %}
-                            {% if forloop.first %}
-                            {% else %}
-                            <div class="form-category-select-element">
-                                <input type="radio" id="category_{{ forloop.counter }}" name="category"
-                                    value="{{ value }}">
-                                <label for="category_{{ forloop.counter }}">{{ label }}</label>
-                            </div>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
+    <div style="display: flex; flex-direction: column;">
+        <navigation class="nav">
+            <a href='/' class='main'>LostDS</a>
+            <a href="/message/ask/" class='item'>잃어버렸나요?</a>
+            <a href="/message/find/" class='item'>주인을 찾아요!</a>
+            <a href='https://map.naver.com/p/search/%EB%8D%95%EC%84%B1%EC%97%AC%EC%9E%90%EB%8C%80%ED%95%99%EA%B5%90?c=15.00,0,0,0,dh'
+                class='item'>지도</a>
+            <a href="{% url 'mypage' %}" class='item'>마이페이지</a>
+
+            {% if user.is_authenticated %}
+            <a href="/login/logout/" class='item'>로그아웃</a>
+            {% else %}
+            <a href="{% url 'user:login' %}" class='item'>로그인</a>
+            {% endif %}
+        </navigation>
+
+        <!-- 게시글 생성/수정 페이지 컨테이너 -->
+        <div class="container">
+            <div class="main-title">
+                <img class="main-title-image" src="/static/message/image/new_post_icon.png">
+                <div class="main-title-font">
+                    어떤 물건을 잃어버리셨나요?<br>잃어버린 물건에 대해 알려주세요!
                 </div>
-                <div class="form-content">
-                    <div class="form-image-container">
-                        <div class="form-image-file">
-                            <img src="/static/message/image/image.png" width="90px" height="90px" alt="이미지"
-                                id="previewImage">
-                            {{ form.head_image }}
+            </div>
+            <div class="form-container">
+                <form class="form" method="post" enctype="multipart/form-data" onsubmit="return checkSelection()">
+                    {% csrf_token %}
+                    <div class="form-content-info">
+                        <div class="form-title-container">
+                            <div class="form-label">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</div>
+                            <div class="form-title-input">{{ form.title }}</div>
+                            <div class="form-label">분실 장소</div>
+                            <div class="form-place-input">{{ form.place }}</div>
                         </div>
-                        <div class="form-image-text" id="imageText">
-                            사진을 첨부해주세요!
+                        <div class="form-category-container">
+                            <div class="form-label">카테고리</div>
+                            <div class="form-category-select">
+                                {% for value, label in form.fields.category.choices %}
+                                {% if forloop.first %}
+                                {% else %}
+                                <div class="form-category-select-element">
+                                    <input type="radio" id="category_{{ forloop.counter }}" name="category"
+                                        value="{{ value }}">
+                                    <label for="category_{{ forloop.counter }}">{{ label }}</label>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                    <div class="form-content-container">
-                        <div class="form-content-input">{{ form.content }}</div>
+                    <div class="form-content">
+                        <div class="form-image-container">
+                            <div class="form-image-file">
+                                <img src="/static/message/image/image.png" width="90px" height="90px" alt="이미지"
+                                    id="previewImage">
+                                {{ form.head_image }}
+                            </div>
+                            <div class="form-image-text" id="imageText">
+                                사진을 첨부해주세요!
+                            </div>
+                        </div>
+                        <div class="form-content-container">
+                            <div class="form-content-input">{{ form.content }}</div>
+                        </div>
                     </div>
                     <div class="submit-button">
                         <button type="submit">등록</button>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
     <script>
@@ -96,7 +113,7 @@
                 reader.readAsDataURL(file);
             }
         });
-        
+
         // textarea에 placeholder 추가
         const contentTextarea = document.getElementById('id_content');
         contentTextarea.setAttribute('placeholder', '글을 작성해주세요 . . .');
