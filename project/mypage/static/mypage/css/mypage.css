@@ -53,9 +53,6 @@ body {
     margin-right: 20px; /* 이미지와 텍스트 사이의 간격 조절 */
 }
 
-.user-info {
-
-}
 
 .post-container {
     width: 53%;
@@ -67,6 +64,7 @@ body {
     border: solid;
     border-color: #E5EFD5;
     border-width: 3px;
+    overflow-y: auto;   /* 수직 스크롤 */
 }
 
 .comment-container {
@@ -79,13 +77,18 @@ body {
     border: solid;
     border-color: #E5EFD5;
     border-width: 3px;
+    overflow-y: auto;   /* 수직 스크롤 */
 }
 
 .content {
     width: parent;
-    height: 80px;
-    padding: 5px;
+    height: 90px;
+    padding: 1px;               /* 이 부분 수정 필요 */
     justify-content: center; /* 중앙 정렬 */
     border-radius: 10px;
     background: #E5EFD5;
+}
+
+a:hover {   /* a 태그 마우스 올리면 색 변하게 해주는 속성 */
+  color: #213BC6;
 }

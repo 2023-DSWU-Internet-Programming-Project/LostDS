@@ -8,19 +8,17 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'mypage/css/mypage.css' %}" media="screen">
     <title>My Page</title>
-<!--    <h1 style = text-align:center;>My Page</h1>-->
 </head>
 
 <body>
 <div class="container">
     <!-- 유저 정보 -->
-<!--    <h2 style="margin-left:463px">유저 정보</h2>-->
     <div class="user-container">
-        <div class="user-content">      <!-- 여기에 사진과 회원 정보(아이디, 환영문구, 이메일) 써줌-->
+        <div class="user-content">      <!-- 여기에 사진과 회원 정보(아이디, 환영문구, 이메일) 불러옴 -->
             <img src="/static/mypage/image/profile.png" width="150" height="150">
             <div class="user-info">
-                <h2>< {{ username }} >님, 환영합니다!</h2>
-                <h3>ID : {{ username }}<br>E-mail : {{ email }}</h3>
+                <h2>< {{ request.user.username }} >님, 환영합니다!</h2>
+                <h3>ID : {{ request.user.username }}<br>E-mail : {{ request.user.email }}</h3>
             </div>
         </div>
     </div>
@@ -29,12 +27,12 @@
     <h3 style="margin-left:-47%"><a href="/mypage/my-post">내가 쓴 게시글</a></h3>
     <div class="post-container">
         {% for post in request.user.askitem_set.all %}
-        <div class="content">      <!-- 여기에 일부의 게시글 보여지도록 (회색칸) -->
+        <div class="content">      <!-- 여기에 일부의 게시글 보여지도록 -->
             <ul>
-                <li>제목: {{ post.title }}<br>
+                <li>
+                    <h3>제목: <a href="{% url 'ask-detail' pk=post.pk %}">{{ post.title }}</a><br></h3>
                     내용: {{ post.content|slice:"10" }}
                 </li>
-                
             </ul>
         </div>
         {% endfor %}
@@ -42,8 +40,9 @@
         {% for post in request.user.finditem_set.all %}
         <div class="content">
             <ul>
-                <li>제목: {{ post.title }}<br>
-                    내용: {{ post.content|slice:"10" }}
+                <li>
+                    <h3>제목 : <a href="{% url 'find-detail' pk=post.pk %}">{{ post.title }}</a><br></h3>
+                    내용 : {{ post.content|slice:"10" }}
                 </li>
             </ul>
         </div>
@@ -57,10 +56,12 @@
         <div class="content">   <!-- 여기에 일부의 댓글 3개정도 보여지도록 -->
             <ul>
                 <li>
-                    {{ comment.author }}<br>
-                    {{ comment.content }}
+                    <h3>작성자 : <a href="{% if comment.post.type == 'ask' %}{% url 'ask-detail' pk=comment.post.pk %}
+                                {% elif comment.post.type == 'find' %}{% url 'find-detail' pk=comment.post.pk %}
+                                {% endif %}">{{ comment.author }}</a><br></h3>
+                        내용 : {{ comment.content }}
                 </li>
-        </ul>
+            </ul>
         </div>
         {% endfor %}
     </div>

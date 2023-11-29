@@ -21,20 +21,31 @@
 
         <div class="post-group">
             <!-- 내가 쓴 게시글 불러오는 공간 -->
-            <div class="post-list"></div>
-<!--            <div class="post-list"></div>-->
-<!--            <div class="post-list"></div>-->
-<!--            <div class="post-list"></div>-->
+            {% for post in request.user.askitem_set.all %}
+            <div class="post-list">
+                <ul>
+                    <li>
+                        <h3>제목: <a href="{% url 'ask-detail' pk=post.pk %}">{{ post.title }}</a><br></h3>
+                        내용: {{ post.content|slice:"10" }}
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
+
+            {% for post in request.user.finditem_set.all %}
+            <div class="content">
+                <ul>
+                    <li>
+                        <h3>제목 : <a href="{% url 'find-detail' pk=post.pk %}">{{ post.title }}</a><br></h3>
+                        내용 : {{ post.content|slice:"10" }}
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
         </div>
 
     </div>
-<!--    {% for posts in posts %}-->
-<!--        <hr/>-->
-<!--        <h2>{{ posts.title }}</h2>-->
-<!--        <h4>{{ posts.author }}</h4>-->
-<!--        <h5>{{ posts.created_at }}</h5>-->
-<!--        <p>{{ posts.content }}</p>-->
-<!--    {% endfor %}-->
+
 </body>
 {% endblock %}
 </html>
