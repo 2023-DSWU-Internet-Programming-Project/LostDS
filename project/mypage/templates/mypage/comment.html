@@ -20,10 +20,18 @@
 
         <div class="post-group">
             <!-- 내가 쓴 댓글 불러오는 공간(일부만?) -->
-            <div class="post-list"></div>
-<!--            <div class="post-list"></div>-->
-<!--            <div class="post-list"></div>-->
-<!--            <div class="post-list"></div>-->
+            {% for comment in request.user.comment_set.all %}
+            <div class="post-list">
+                <ul>
+                    <li>
+                        <h3>작성자 : <a href="{% if comment.post.type == 'ask' %}{% url 'ask-detail' pk=comment.post.pk %}
+                                    {% elif comment.post.type == 'find' %}{% url 'find-detail' pk=comment.post.pk %}
+                                    {% endif %}">{{ comment.author }}</a><br></h3>
+                        내용 : {{ comment.content }}
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
         </div>
 
     </div>
