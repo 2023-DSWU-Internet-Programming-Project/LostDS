@@ -55,6 +55,8 @@ body {
 
 
 .post-container {
+    display: flex;
+    flex-direction:column;
     width: 53%;
     height: 260px;
     padding: 10px;
@@ -65,9 +67,12 @@ body {
     border-color: #E5EFD5;
     border-width: 3px;
     overflow-y: auto;   /* 수직 스크롤 */
+    gap: 5px;
 }
 
 .comment-container {
+    display: flex;
+    flex-direction:column;
     width: 53%;
     height: 260px;
     padding: 10px;
@@ -78,6 +83,7 @@ body {
     border-color: #E5EFD5;
     border-width: 3px;
     overflow-y: auto;   /* 수직 스크롤 */
+    gap: 5px;
 }
 
 .content {

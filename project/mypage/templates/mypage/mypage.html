@@ -59,7 +59,7 @@
                     <h3>작성자 : <a href="{% if comment.post.type == 'ask' %}{% url 'ask-detail' pk=comment.post.pk %}
                                 {% elif comment.post.type == 'find' %}{% url 'find-detail' pk=comment.post.pk %}
                                 {% endif %}">{{ comment.author }}</a><br></h3>
-                        내용 : {{ comment.content }}
+                    내용 : {{ comment.content }}
                 </li>
             </ul>
         </div>
