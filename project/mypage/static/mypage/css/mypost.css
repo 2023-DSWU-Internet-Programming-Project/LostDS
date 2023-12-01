@@ -1,4 +1,4 @@
-/* 게시글 리스트가 보이는 css 코드(my-post와 연결) */
+/* 게시글 리스트가 보이는 css 코드(my-post.html과 연결) */
 @font-face {
     font-family: 'PuradakGentleGothicR';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.1/PuradakGentleGothicR.woff2') format('woff2');
@@ -50,6 +50,7 @@ h2 {
     width: 93%;
     height: 660px;
     margin-left: 35px;
+    overflow-y: auto;         
 }
 
 .post-list {
@@ -59,8 +60,8 @@ h2 {
     border-color: #FFFFFF;
     border-width: 1px;
     border-radius: 30px;
-    width: 97%;
-    height: 140px;
+    width: 96%;
+    height: 120px;
 }
 
 .post-list:hover {

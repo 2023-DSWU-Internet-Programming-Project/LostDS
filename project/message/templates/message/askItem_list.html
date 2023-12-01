@@ -1,5 +1,7 @@
 <!-- 분실물을 찾는 페이지 -->
+{% extends 'main/nav.html' %}
 <!DOCTYPE html>
+{% block content %}
 {% load static %}
 <html lang="ko">
 
@@ -11,24 +13,10 @@
 
 <body>
     <div style="display: flex; flex-direction: column;">
-        <navigation class="nav">
-            <a href='/' class='main'>LostDS</a>
-            <a href="/message/ask/" class='item'>잃어버렸나요?</a>
-            <a href="/message/find/" class='item'>주인을 찾아요!</a>
-            <a href='https://map.naver.com/p/search/%EB%8D%95%EC%84%B1%EC%97%AC%EC%9E%90%EB%8C%80%ED%95%99%EA%B5%90?c=15.00,0,0,0,dh'
-                class='item'>지도</a>
-            <a href="{% url 'mypage' %}" class='item'>마이페이지</a>
-
-            {% if user.is_authenticated %}
-            <a href="/login/logout/" class='item'>로그아웃</a>
-            {% else %}
-            <a href="{% url 'user:login' %}" class='item'>로그인</a>
-            {% endif %}
-        </navigation>
 
         <div class="container">
             <div class="main-title main-title-font">
-                물건을 잃어버리셨나요?<br>잃어버린 분실물을 올려주세요!
+                <br>물건을 잃어버리셨나요?<br>잃어버린 분실물을 올려주세요!
             </div>
 
             <!-- 게시글 생성 버튼 -->
@@ -127,5 +115,5 @@
         </div>
     </div>
 </body>
-
+{% endblock %}
 </html>
