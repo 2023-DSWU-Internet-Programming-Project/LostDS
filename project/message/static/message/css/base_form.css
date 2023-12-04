@@ -65,6 +65,7 @@ body {
     justify-content: space-around;
     align-items: center;
     background-color: #FAF2D2;
+    z-index : 10;
 }
 
 .main,
