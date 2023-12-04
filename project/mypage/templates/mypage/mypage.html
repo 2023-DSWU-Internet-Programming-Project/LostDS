@@ -24,7 +24,7 @@
     </div>
 
     <!-- 게시글 -->
-    <h3 style="margin-left:-47%"><a href="/mypage/my-post">내가 쓴 게시글</a></h3>
+    <h3 style="margin-left:-47%"><a href="/mypage/my-post/">내가 쓴 게시글</a></h3>
     <div class="post-container">
         {% for post in request.user.askitem_set.all|slice:":2" reversed %}      <!-- ask(잃어버린물건) 게시글에서 내가 쓴 최신 게시글 2개를 가져와서 보여지도록 설정 -->
         <div class="content">      <!-- 여기에 일부의 게시글 보여지도록 -->
@@ -50,18 +50,29 @@
     </div>
 
     <!-- 댓글 -->
-    <h3 style="margin-left:-47%"><a href="/mypage/comment">내가 쓴 댓글</a></h3>
+    <h3 style="margin-left:-47%"><a href="/mypage/comment/">내가 쓴 댓글</a></h3>
     <div class="comment-container">
         {% for comment in request.user.comment_set.all|slice:":3" reversed %}   <!-- 댓글은 최신 댓글 3개를 가져와서 보여지도록 설정 -->
         <div class="content">
             <ul>
                 <li>
+<<<<<<< HEAD
+                    <h3>작성자 : {% if comment.askPost %}
+                        <a href="/message/ask/{{ comment.askPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
+                        {% elif comment.findPost %}
+                        <a href="/message/find/{{ comment.findPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
+                        {% endif %}
+                        <br>
+                    </h3>
+                    내용 : {{ comment.content }}
+=======
                     <h3>작성자 :  {% if comment.askPost %}
                         <a href="/message/ask/{{ comment.askPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
                                 {% elif comment.findPost %}
                         <a href="/message/find/{{ comment.findPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
                                 {% endif %}<br></h3>
                         내용 : {{ comment.content }}
+>>>>>>> dd6dfbc074a5409316637634a5b4df46b85c0a1c
                 </li>
             </ul>
         </div>

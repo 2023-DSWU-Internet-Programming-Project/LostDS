@@ -24,7 +24,7 @@ class findDetail(DetailView):
     model = FindItem
     template_name = 'message/findItem_detail.html'
     # 컨텍스트 객체 이름 지정
-    context_object_name = 'find'
+    context_object_name = 'item'
 
     def get_context_data(self, **kwargs):
         context = super(findDetail, self).get_context_data()
@@ -38,7 +38,6 @@ class FindPostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = FindItem
     fields = ['title', 'place', 'category', 'head_image', 'content']
     template_name = 'message/findItem_form.html'
-    context_object_name = 'find'
 
     def test_func(self):
         return self.request.user.is_authenticated
@@ -99,7 +98,7 @@ class askDetail(DetailView):
     model = AskItem
     template_name = 'message/askItem_detail.html'
     # 컨텍스트 객체 이름 지정
-    context_object_name = 'ask'
+    context_object_name = 'item'
 
     def get_context_data(self, **kwargs):
         context = super(askDetail, self).get_context_data()
@@ -113,7 +112,6 @@ class AskPostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = AskItem
     fields = ['title', 'place', 'category', 'head_image', 'content']
     template_name = 'message/askItem_form.html'
-    context_object_name = 'ask'
 
     def test_func(self):
         return self.request.user.is_authenticated
@@ -174,7 +172,7 @@ class completeDetail(DetailView):
     model = CompleteItem
     template_name = 'message/completeItem_detail.html'
     # 컨텍스트 객체 이름 지정
-    context_object_name = 'complete'
+    context_object_name = 'item'
 
     def get_context_data(self, **kwargs):
         context = super(completeDetail, self).get_context_data()

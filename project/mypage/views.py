@@ -1,9 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required   # 아이디와 이메일 마이페이지에 가져오기 위해 사용했음
+<<<<<<< HEAD
+=======
 from message.models import AskItem, FindItem, Comment
 from django.views.generic import ListView
+>>>>>>> dd6dfbc074a5409316637634a5b4df46b85c0a1c
 
-# Create your views here.
 def mypage_view(request):
     # 사용자 정보를 세션에서 가져와서 전달
     username = request.user.username
@@ -23,4 +25,8 @@ def comment_view(requset):   # 댓글 리스트 페이지
     return render(
         requset,
         'mypage/comment.html',
+<<<<<<< HEAD
     )
+=======
+    )
+>>>>>>> dd6dfbc074a5409316637634a5b4df46b85c0a1c
