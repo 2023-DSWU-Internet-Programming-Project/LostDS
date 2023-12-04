@@ -6,16 +6,18 @@ def mypage_view(request):
     username = request.user.username
     email = request.user.email
 
-    return render(request, 'mypage/mypage.html', {'username':username, 'email':email, })
+    return render(request, 'mypage/mypage.html', {'username': username, 'email': email, })
 
-def mypost_view(requset):   # 게시글 리스트 페이지
+
+def mypost_view(requset):  # 게시글 리스트 페이지
 
     return render(
         requset,
         'mypage/my-post.html',
     )
 
-def comment_view(requset):   # 댓글 리스트 페이지
+
+def comment_view(requset):  # 댓글 리스트 페이지
 
     return render(
         requset,
