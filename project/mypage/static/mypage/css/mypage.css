@@ -96,6 +96,14 @@ body {
     line-height: 1px;           /* 행간 사이의 간격 조절 */
 }
 
+a,
+a:link,
+a:visited,
+a:active {
+    color: black;
+    text-decoration-line: none;
+}
+
 a:hover {                       /* a 태그 마우스 올리면 색 변하게 해주는 속성 */
   color: #213BC6;
 }
