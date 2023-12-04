@@ -16,7 +16,7 @@
     <div class="post-group">
         <!-- 내가 쓴 댓글 불러오는 공간 -->
         {% for comment in request.user.comment_set.all reversed %}
-        <div class="post-list">
+        <div class="post-list" >
             <ul>
                 <li>
                     <h3>작성자 : {% if comment.askPost %}
