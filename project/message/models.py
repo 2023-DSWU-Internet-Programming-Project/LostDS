@@ -126,6 +126,4 @@ class Comment(models.Model):
         return f'{self.findPost.get_absolute_url()}#comment-{self.pk}'
 
     def get_absolute_url_ask(self):
-        if self.askPost:
-            return f'{self.askPost.get_absolute_url()}#comment-{self.pk}'
-        return ''
+        return f'{self.askPost.get_absolute_url()}#comment-{self.pk}'

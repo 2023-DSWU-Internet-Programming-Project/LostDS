@@ -1,6 +1,8 @@
 {% extends 'main/nav.html' %}
+<!DOCTYPE html>
 {% block content %}
 {% load static %}
+
 <!-- 내가 쓴 게시글 목록 페이지 html -->
 <html lang="ko">
 <head>
@@ -9,38 +11,44 @@
     <link rel="stylesheet" href="{% static 'mypage/css/mypost.css' %}" media="screen">
     <style> .nav {z-index: 999;} </style>
 </head>
+
 <body>
-<div class="container">
-    <div class="post">
-        <h2>내가 쓴 게시글</h2>
+
+    <div class="container">
+
+        <div class="post">
+            <h2>내가 쓴 게시글</h2>
+        </div>
+
+        <div class="post-group">
+            <!-- 내가 쓴 게시글 불러오는 공간(최신순으로) -->
+            {% for post in request.user.askitem_set.all reversed %}
+            <div class="post-list">
+                <ul>
+                    <li>
+                        <h3>제목: <a class="content-title" href="/message/ask/{{ post.pk }}/">{{ post.title }}</a><br></h3>
+                        내용: {{ post.content|slice:"10" }}<br>
+                        작성시간: {{ post.created_at }}
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
+
+            {% for post in request.user.finditem_set.all reversed %}
+            <div class="post-list">
+                <ul>
+                    <li>
+                        <h3>제목 : <a class="content-title" href="/message/find/{{ post.pk }}/">{{ post.title }}</a><br></h3>
+                        내용 : {{ post.content|slice:"10" }}<br>
+                        작성시간: {{ post.created_at }}
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+
     </div>
 
-    <div class="post-group">
-        <!-- 내가 쓴 게시글 불러오는 공간(최신순으로) -->
-        {% for post in request.user.askitem_set.all reversed %}
-        <div class="post-list">
-            <ul>
-                <li>
-                    <h3>제목: <a href="/message/ask/{{ post.pk }}/">{{ post.title }}</a><br></h3>
-                    내용: {{ post.content|slice:"10" }}<br>
-                    작성시간: {{ post.created_at }}
-                </li>
-            </ul>
-        </div>
-        {% endfor %}
-        {% for post in request.user.finditem_set.all reversed %}
-        <div class="post-list">
-            <ul>
-                <li>
-                    <h3>제목 : <a href="/message/find/{{ post.pk }}/">{{ post.title }}</a><br></h3>
-                    내용 : {{ post.content|slice:"10" }}<br>
-                    작성시간: {{ post.created_at }}
-                </li>
-            </ul>
-        </div>
-        {% endfor %}
-    </div>
-</div>
 </body>
 {% endblock %}
 </html>
