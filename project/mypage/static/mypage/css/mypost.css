@@ -6,14 +6,12 @@
     font-style: normal;
     text-shadow: 100px;
 }
-
 @font-face {
     font-family: 'EASTARJET-Medium';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/EASTARJET-Medium.woff2') format('woff2');
     font-weight: 500;
     font-style: normal;
 }
-
 body {
     font-family: 'EASTARJET-Medium';
     background-color: #E8E6D5;
@@ -21,7 +19,6 @@ body {
     justify-content: center;    /* 컨텐츠 중앙 정렬 */
     flex-direction: column;
 }
-
 .container {
     background-color: white;
     border-radius: 30px;
@@ -35,13 +32,11 @@ body {
     align-items: center;        /* 보조 축 방향에서 배치 변경 */
     justify-content: center;    /* 중심축 방향에서 배치 변경 */
 }
-
 h2 {
     font-size: 27px;
     margin-left: 42px;
     margin-top: 40px;
 }
-
 .post-group {
     border-style: solid;
     border-color: #D4E7B5;
@@ -50,7 +45,7 @@ h2 {
     width: 93%;
     height: 660px;
     margin-left: 35px;
-    overflow-y: auto;         
+    overflow-y: auto;
 }
 
 .post-list {

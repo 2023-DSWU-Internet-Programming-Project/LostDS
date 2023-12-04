@@ -6,7 +6,6 @@
     font-style: normal;
     text-shadow: 100px;
 }
-
 @font-face {
     font-family: 'EASTARJET-Medium';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/EASTARJET-Medium.woff2') format('woff2');
@@ -54,7 +53,6 @@ body {
     margin-right: 20px;         /* 이미지와 텍스트 사이의 간격 조절 */
 }
 
-
 .post-container {
     display: flex;
     flex-direction:column;
@@ -78,7 +76,7 @@ body {
     padding: 10px;
     justify-content: center;    /* 중앙 정렬 */
     border-radius: 10px;
-    background: #FFFFFF;
+    background: white;
     border: solid;
     border-color: #E5EFD5;
     border-width: 3px;
