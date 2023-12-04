@@ -1,12 +1,22 @@
 {% extends 'main/nav.html' %}
+<!DOCTYPE html>
 {% block content %}
 {% load static %}
+
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'mypage/css/mypage.css' %}" media="screen">
     <title>My Page</title>
+
+    <style>
+        .title:hover {
+        box-shadow: 4px 5px 5px rgba(0, 0, 0, 0.25);
+        }
+        
+    </style>
 </head>
+
 <body>
 <div class="container">
     <!-- 유저 정보 -->
@@ -19,52 +29,54 @@
             </div>
         </div>
     </div>
+
     <!-- 게시글 -->
-    <h3 style="margin-left:-47%"><a href="/mypage/my-post">내가 쓴 게시글</a></h3>
+    <h3 style="margin-left:-47%"><a class="title" href="/mypage/my-post">내가 쓴 게시글</a></h3>
     <div class="post-container">
-        {% for post in request.user.askitem_set.all|slice:":2" reversed %}
-        <!-- ask(잃어버린물건) 게시글에서 내가 쓴 최신 게시글 2개를 가져와서 보여지도록 설정 -->
+        {% for post in request.user.askitem_set.all|slice:":2" reversed %}      <!-- ask(잃어버린물건) 게시글에서 내가 쓴 최신 게시글 2개를 가져와서 보여지도록 설정 -->
         <div class="content">      <!-- 여기에 일부의 게시글 보여지도록 -->
             <ul>
                 <li>
-                    <h3>제목: <a href="/message/ask/{{ post.pk }}/">{{ post.title }}</a><br></h3>
+                    <h3>제목: <a class="content-title" href="/message/ask/{{ post.pk }}/">{{ post.title }}</a><br></h3>
                     내용: {{ post.content|slice:"10" }}
                 </li>
             </ul>
         </div>
         {% endfor %}
-        {% for post in request.user.finditem_set.all|slice:":1" reversed %}
-        <!-- find(습득물) 게시글에서 내가 쓴 최신 게시글 1개를 가져와서 보여지도록 설정 -->
+
+        {% for post in request.user.finditem_set.all|slice:":1" reversed %}     <!-- find(습득물) 게시글에서 내가 쓴 최신 게시글 1개를 가져와서 보여지도록 설정 -->
         <div class="content">
             <ul>
                 <li>
-                    <h3>제목 : <a href="/message/find/{{ post.pk }}/">{{ post.title }}</a><br></h3>
+                    <h3>제목 : <a class="content-title" href="/message/find/{{ post.pk }}/">{{ post.title }}</a><br></h3>
                     내용 : {{ post.content|slice:"10" }}
                 </li>
             </ul>
         </div>
         {% endfor %}
     </div>
+
     <!-- 댓글 -->
-    <h3 style="margin-left:-47%"><a href="/mypage/comment">내가 쓴 댓글</a></h3>
+    <h3 style="margin-left:-47%"><a class="title" href="/mypage/comment">내가 쓴 댓글</a></h3>
     <div class="comment-container">
         {% for comment in request.user.comment_set.all|slice:":3" reversed %}   <!-- 댓글은 최신 댓글 3개를 가져와서 보여지도록 설정 -->
         <div class="content">
             <ul>
                 <li>
-                    <h3>작성자 : {% if comment.askPost %}
-                        <a href="/message/ask/{{ comment.askPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
-                        {% elif comment.findPost %}
-                        <a href="/message/find/{{ comment.findPost.pk }}/#comment-{{comment.pk}}">{{ comment.author
-                            }}</a>
-                        {% endif %}<br></h3>
-                    내용 : {{ comment.content }}
+                    <h3 >작성자 :  {% if comment.askPost %}
+                        <a class="content-title" href="/message/ask/{{ comment.askPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
+                                {% elif comment.findPost %}
+                        <a class="content-title" href="/message/find/{{ comment.findPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
+                                {% endif %}<br></h3>
+                        내용 : {{ comment.content }}
                 </li>
             </ul>
         </div>
         {% endfor %}
     </div>
+
 </div>
+
 </body>
 {% endblock %}
 </html>
