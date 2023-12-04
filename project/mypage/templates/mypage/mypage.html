@@ -13,6 +13,7 @@
         .title:hover {
         box-shadow: 4px 5px 5px rgba(0, 0, 0, 0.25);
         }
+        
     </style>
 </head>
 
@@ -66,7 +67,7 @@
                         <a class="content-title" href="/message/ask/{{ comment.askPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
                                 {% elif comment.findPost %}
                         <a class="content-title" href="/message/find/{{ comment.findPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
-                                 {% endif %}<br></h3>
+                                {% endif %}<br></h3>
                         내용 : {{ comment.content }}
                 </li>
             </ul>

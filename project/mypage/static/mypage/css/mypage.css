@@ -114,6 +114,7 @@ a:active {
     border-radius: 5px;
 }
 
+
 .content-title:hover {                       /* a 태그 마우스 올리면 색 변하게 해주는 속성 */
-  color: #213BC6;
+    color: #213BC6;
 }
