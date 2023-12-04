@@ -19,20 +19,29 @@
         </div>
 
         <div class="post-group">
-            <!-- 내가 쓴 댓글 불러오는 공간(일부만?) -->
-            {% for comment in request.user.comment_set.all %}
+            <!-- 내가 쓴 댓글 불러오는 공간 -->
+            {% for comment in request.user.comment_set.all reversed %}
             <div class="post-list">
                 <ul>
                     <li>
+<<<<<<< HEAD
                     <h3>작성자 :
                         {% if comment.askPost %}
+=======
+                    <h3>작성자 : {% if comment.askPost %}
+>>>>>>> dd6dfbc074a5409316637634a5b4df46b85c0a1c
                         <a href="/message/ask/{{ comment.askPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
                         {% elif comment.findPost %}
                         <a href="/message/find/{{ comment.findPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
                         {% endif %}
                         <br>
                     </h3>
+<<<<<<< HEAD
                         내용 : {{ comment.content }}
+=======
+                        내용 : {{ comment.content }}<br>
+                        작성시간: {{ comment.created_at }}
+>>>>>>> dd6dfbc074a5409316637634a5b4df46b85c0a1c
                     </li>
                 </ul>
             </div>

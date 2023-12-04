@@ -20,24 +20,34 @@
         </div>
 
         <div class="post-group">
-            <!-- 내가 쓴 게시글 불러오는 공간 -->
-            {% for post in request.user.askitem_set.all %}
+            <!-- 내가 쓴 게시글 불러오는 공간(최신순으로) -->
+            {% for post in request.user.askitem_set.all reversed %}
             <div class="post-list">
                 <ul>
                     <li>
                         <h3>제목: <a href="/message/ask/{{ post.pk }}/">{{ post.title }}</a><br></h3>
+<<<<<<< HEAD
                         내용: {{ post.content|slice:"10" }}
+=======
+                        내용: {{ post.content|slice:"10" }}<br>
+                        작성시간: {{ post.created_at }}
+>>>>>>> dd6dfbc074a5409316637634a5b4df46b85c0a1c
                     </li>
                 </ul>
             </div>
             {% endfor %}
 
-            {% for post in request.user.finditem_set.all %}
-            <div class="content">
+            {% for post in request.user.finditem_set.all reversed %}
+            <div class="post-list">
                 <ul>
                     <li>
                         <h3>제목 : <a href="/message/find/{{ post.pk }}/">{{ post.title }}</a><br></h3>
+<<<<<<< HEAD
                         내용 : {{ post.content|slice:"10" }}
+=======
+                        내용 : {{ post.content|slice:"10" }}<br>
+                        작성시간: {{ post.created_at }}
+>>>>>>> dd6dfbc074a5409316637634a5b4df46b85c0a1c
                     </li>
                 </ul>
             </div>

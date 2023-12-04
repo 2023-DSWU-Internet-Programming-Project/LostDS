@@ -14,7 +14,7 @@
 <div class="container">
     <!-- 유저 정보 -->
     <div class="user-container">
-        <div class="user-content">      <!-- 여기에 사진과 회원 정보(아이디, 환영문구, 이메일) 불러옴 -->
+        <div class="user-content">      <!-- 사진과 회원 정보(아이디, 환영문구, 이메일) 불러옴 -->
             <img src="/static/mypage/image/profile.png" width="150" height="150">
             <div class="user-info">
                 <h2>< {{ request.user.username }} >님, 환영합니다!</h2>
@@ -26,7 +26,7 @@
     <!-- 게시글 -->
     <h3 style="margin-left:-47%"><a href="/mypage/my-post/">내가 쓴 게시글</a></h3>
     <div class="post-container">
-        {% for post in request.user.askitem_set.all %}
+        {% for post in request.user.askitem_set.all|slice:":2" reversed %}      <!-- ask(잃어버린물건) 게시글에서 내가 쓴 최신 게시글 2개를 가져와서 보여지도록 설정 -->
         <div class="content">      <!-- 여기에 일부의 게시글 보여지도록 -->
             <ul>
                 <li>
@@ -37,7 +37,7 @@
         </div>
         {% endfor %}
 
-        {% for post in request.user.finditem_set.all %}
+        {% for post in request.user.finditem_set.all|slice:":1" reversed %}     <!-- find(습득물) 게시글에서 내가 쓴 최신 게시글 1개를 가져와서 보여지도록 설정 -->
         <div class="content">
             <ul>
                 <li>
@@ -52,10 +52,11 @@
     <!-- 댓글 -->
     <h3 style="margin-left:-47%"><a href="/mypage/comment/">내가 쓴 댓글</a></h3>
     <div class="comment-container">
-        {% for comment in request.user.comment_set.all %}
-        <div class="content">   <!-- 여기에 일부의 댓글 3개정도 보여지도록 -->
+        {% for comment in request.user.comment_set.all|slice:":3" reversed %}   <!-- 댓글은 최신 댓글 3개를 가져와서 보여지도록 설정 -->
+        <div class="content">
             <ul>
                 <li>
+<<<<<<< HEAD
                     <h3>작성자 : {% if comment.askPost %}
                         <a href="/message/ask/{{ comment.askPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
                         {% elif comment.findPost %}
@@ -64,6 +65,14 @@
                         <br>
                     </h3>
                     내용 : {{ comment.content }}
+=======
+                    <h3>작성자 :  {% if comment.askPost %}
+                        <a href="/message/ask/{{ comment.askPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
+                                {% elif comment.findPost %}
+                        <a href="/message/find/{{ comment.findPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
+                                {% endif %}<br></h3>
+                        내용 : {{ comment.content }}
+>>>>>>> dd6dfbc074a5409316637634a5b4df46b85c0a1c
                 </li>
             </ul>
         </div>
