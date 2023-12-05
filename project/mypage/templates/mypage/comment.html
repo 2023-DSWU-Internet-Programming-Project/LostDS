@@ -23,17 +23,27 @@
             {% for comment in request.user.comment_set.all reversed %}
             <div class="post-list">
                 <ul>
-                    <li>
-                    <h3>작성자 : {% if comment.askPost %}
-                        <a href="/message/ask/{{ comment.askPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
-                        {% elif comment.findPost %}
-                        <a href="/message/find/{{ comment.findPost.pk }}/#comment-{{comment.pk}}">{{ comment.author }}</a>
-                        {% endif %}
-                        <br>
-                    </h3>
-                        내용 : {{ comment.content }}<br>
-                        작성시간: {{ comment.created_at }}
-                    </li>
+                    {% if comment.askPost %}
+                    <a href="/message/ask/{{ comment.askPost.pk }}/#comment-{{ comment.pk}}">
+                        <li>
+                            <h3 class="title">
+                                분실물 게시판<br>
+                            </h3>
+                            내용 : {{ comment.content }}<br>
+                            작성시간: {{ comment.created_at }}
+                        </li>
+                    </a>
+                    {% elif comment.findPost %}
+                    <a href="/message/find/{{ comment.findPost.pk }}/#comment-{{ comment.pk}}">
+                        <li>
+                            <h3 class="title">
+                                습득물 게시판<br>
+                            </h3>
+                            내용 : {{ comment.content }}<br>
+                            작성시간: {{ comment.created_at }}
+                        </li>
+                    </a>
+                    {% endif %}
                 </ul>
             </div>
             {% endfor %}
