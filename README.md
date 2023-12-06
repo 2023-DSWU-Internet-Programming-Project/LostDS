@@ -20,4 +20,4 @@
 3. <u>프로그램 실행을 위한 사전 설정</u>
 - secrets.json: 프로젝트 폴더 안에 위치 (최종 보고서에 있는 코드 복사 필요)
 - 가상환경(venv) : 프로젝트 폴더 밖에 위치
-- pip freeze > requirements.txt: 패키지 일괄 설치
+- pip install -r requirements.txt: 패키지 일괄 설치
