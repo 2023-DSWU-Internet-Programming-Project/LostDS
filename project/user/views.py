@@ -7,6 +7,8 @@ from .forms import *
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
 from django.conf import settings
+from django.utils import timezone
+from datetime import timedelta
 
 # Create your views here.
 
@@ -40,6 +42,7 @@ def signup_view(request):
 
         if password == password2:
             user = CustomUser.objects.create_user(username=username, password=password, email=email, get_verification_token=get_random_string(length=32), is_active=False)
+            user.token_created_at = timezone.now()
             user.save()
             send_verification_email(email, user.get_verification_token) 
             return render(request, 'user/verification.html')
@@ -61,9 +64,15 @@ def verification_view(request):
         verification_token = request.POST.get('verification_token')
         try:
             user = CustomUser.objects.get(get_verification_token=verification_token)
-            user.is_active = True
-            user.save()
-            return redirect('user:login')
+
+            expiration_time = user.token_created_at + timezone.timedelta(minutes=10)  # 토큰이 10분 이상 경과했는지 확인
+            if timezone.now() <= expiration_time:
+                user.is_active = True
+                user.save()
+                return redirect('user:login')
+            else:
+                return render(request, 'user/verification.html', {'error_message': '인증 토큰이 만료되었습니다.'})
+
         except CustomUser.DoesNotExist:
             return render(request, 'user/verification.html', {'error_message': '인증 토큰이 잘못되었습니다.'})
     else: 
